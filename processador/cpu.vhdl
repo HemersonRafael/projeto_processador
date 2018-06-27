@@ -22,7 +22,8 @@ component ctrl
    port ( rst   : in STD_LOGIC;
 			 start : in STD_LOGIC;
           clk   : in STD_LOGIC;
-          imm   : out std_logic_vector(3 downto 0)
+          imm   : out std_logic_vector(3 downto 0);
+			 alu_st: out std_logic_vector(1 downto 0) -- especifica qual operação deve ser feita com a ALU
           -- add ports as required
         );
 end component;
@@ -39,7 +40,8 @@ end component;
 
 
 signal immediate : std_logic_vector(3 downto 0);
-signal cpu_out : std_logic_vector(3 downto 0);
+signal cpu_out   : std_logic_vector(3 downto 0);
+signal alu_sele  : std_logic_vector(1 downto 0);
 
 begin
 
@@ -51,7 +53,7 @@ begin
 -- all results of any alu operation. naturally, this is because of the 
 -- nature of the instruction set.
 
-  controller: ctrl port map(rst, start, clk,immediate);
+  controller: ctrl port map(rst, start, clk, immediate, alu_sele);
   datapath: dp port map(rst, clk, immediate, cpu_out);
 
 

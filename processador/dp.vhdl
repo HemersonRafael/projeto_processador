@@ -3,11 +3,18 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.std_logic_arith.all;
 
+--s1 s0 | Operação
+-- 0  0 | A passa pela ALU
+-- 0  1 | A+B
+-- 1  0 | A-B 
+
 entity alu is
   port ( rst   : in STD_LOGIC;
-         clk   : in STD_LOGIC;
-         imm   : in std_logic_vector(3 downto 0); 
-			alu_st: in std_logic_vector(1 downto 0);			
+         clk   : in STD_LOGIC; 
+         imm   : in std_logic_vector(3 downto 0); -- Valor que vem direto da memória de dados, inserido pelo usuário
+			A		: in std_logic_vector(3 downto 0);-- Primeiro valor do Rf
+			B		: in std_logic_vector(3 downto 0);-- Segundo valor do Rf
+			alu_st: in std_logic_vector(1 downto 0); -- estados alu_s1 e  alu_s0			
          output: out STD_LOGIC_VECTOR (3 downto 0)			
          -- insert ports as need be
        );
@@ -18,17 +25,18 @@ begin
 	process (rst, clk)
 	begin
 	  -- take care of rst state
-	  case alu_st is
+	  if(rst='1') then
+		  output <= "0000"; 
+	  end if;
 	  
+	  case alu_st is 
 	  when "00" => output <= imm;
-	 -- when "01" => output <= ;
-	 -- when "00" => output <= imm;
-	  
+	  when "01" => output <= A+B;
+	  when "10" => output <= A-B;
+	  when others => output <= "0000"; 
 	  -- add functionality as required
 	  end case;
-	  output <= imm;
 	end process;
-
 end bhv;
 
 -- *************************************************************************
@@ -96,9 +104,12 @@ begin
 	process (rst, clk)
 	begin	  
 	  -- take care of rst state
---	  if(rst = '1') then
---		output <= "0000"; -- A priori
---	  end if;
+	  if(rst = '1') then
+		out0 <= "0000";
+		out1 <= "0000";
+		out2 <= "0000";
+		out3 <= "0000";
+	  end if;
 	  
 	  if(clk'event and clk = '1')then
 	  -- Quando enable for '0', estaremos tratando os acontecimentos nos signals
@@ -139,6 +150,7 @@ use IEEE.std_logic_1164.all;
 entity dp is
   port ( rst     : in STD_LOGIC;
          clk     : in STD_LOGIC;
+			alu_sig : in std_logic_vector(1 downto 0);
          imm     : in std_logic_vector(3 downto 0);
          output_4: out STD_LOGIC_VECTOR (3 downto 0)
          --add ports as required
@@ -179,12 +191,15 @@ component alu is
     );
 end component;
 
+signal acc_out: std_logic_vector(3 downto 0);
 signal alu_out: std_logic_vector(3 downto 0);
-signal rf_out: std_logic_vector(3 downto 0);
+signal rf_out: std_logic_vector(7 downto 0);
 
 begin
-	--alu1: alu port map (rst,clk,imm, alu_out);
-	--rf1:	rf port map(rst, clk, alu_out,  )
+	ACC1: acc port map(rst, clk, imm, enb, acc_out);
+	rf1 :	rf port map(rst, clk, acc_out, sel, enb, rf_out(7 downto 4));
+	rf2 :	rf port map(rst, clk, acc_out, sel, enb, rf_out(3 downto 0));
+	alu1: alu port map (rst, clk, imm, rf_out(7 downto 4), rf_out(3 downto 0), alu_sig, alu_out);
 	-- maybe this is were we add the port maps for the other components.....
 
 	process (rst, clk)
