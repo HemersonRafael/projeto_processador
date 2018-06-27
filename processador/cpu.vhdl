@@ -17,6 +17,7 @@ end cpu;
 
 -- these will change as your design grows
 architecture struc of cpu is
+
 component ctrl 
    port ( rst   : in STD_LOGIC;
 			 start : in STD_LOGIC;

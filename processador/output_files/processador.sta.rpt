@@ -1,6 +1,6 @@
 TimeQuest Timing Analyzer report for processador
-Thu Jun 21 17:10:07 2018
-Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+Tue Jun 26 22:48:00 2018
+Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
 
 
 ---------------------
@@ -51,17 +51,17 @@ applicable agreement for further details.
 
 
 
-+----------------------------------------------------------------------------------------+
-; TimeQuest Timing Analyzer Summary                                                      ;
-+--------------------+-------------------------------------------------------------------+
-; Quartus II Version ; Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition ;
-; Revision Name      ; processador                                                       ;
-; Device Family      ; Cyclone II                                                        ;
-; Device Name        ; EP2C35F672C6                                                      ;
-; Timing Models      ; Final                                                             ;
-; Delay Model        ; Combined                                                          ;
-; Rise/Fall Delays   ; Unavailable                                                       ;
-+--------------------+-------------------------------------------------------------------+
++-------------------------------------------------------------------------+
+; TimeQuest Timing Analyzer Summary                                       ;
++--------------------+----------------------------------------------------+
+; Quartus II Version ; Version 13.0.0 Build 156 04/24/2013 SJ Web Edition ;
+; Revision Name      ; processador                                        ;
+; Device Family      ; Cyclone II                                         ;
+; Device Name        ; EP2C35F672C6                                       ;
+; Timing Models      ; Final                                              ;
+; Delay Model        ; Combined                                           ;
+; Rise/Fall Delays   ; Unavailable                                        ;
++--------------------+----------------------------------------------------+
 
 
 Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
@@ -206,8 +206,8 @@ No dedicated SERDES Receiver circuitry present in device or used in design
 +------------------------------------+
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit TimeQuest Timing Analyzer
-    Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Thu Jun 21 17:10:04 2018
+    Info: Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
+    Info: Processing started: Tue Jun 26 22:47:56 2018
 Info: Command: quartus_sta processador -c processador
 Info: qsta_default_script.tcl version: #1
 Warning (20028): Parallel compilation is not licensed and has been disabled
@@ -240,9 +240,9 @@ Info (332001): The selected device family is not supported by the report_metasta
 Info (332101): Design is fully constrained for setup requirements
 Info (332101): Design is fully constrained for hold requirements
 Info: Quartus II 64-Bit TimeQuest Timing Analyzer was successful. 0 errors, 4 warnings
-    Info: Peak virtual memory: 388 megabytes
-    Info: Processing ended: Thu Jun 21 17:10:07 2018
-    Info: Elapsed time: 00:00:03
+    Info: Peak virtual memory: 4563 megabytes
+    Info: Processing ended: Tue Jun 26 22:48:00 2018
+    Info: Elapsed time: 00:00:04
     Info: Total CPU time (on all processors): 00:00:03
 
 
