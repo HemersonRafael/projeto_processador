@@ -54,7 +54,7 @@ begin
 	--rf1:	rf port map(rst, clk, alu_out,  )
 	-- maybe this is were we add the port maps for the other components.....
 
-	process (rst, clk)
+	process (rst, clk, alu_out)
 		begin
 
 			-- this you should change so the output actually

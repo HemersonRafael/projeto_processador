@@ -54,7 +54,7 @@ architecture struc of cpu is
 	  
 	  controller: ctrl port map(rst, start, clk,immediate);
 	  datapath: dp port map(rst, clk, immediate, cpu_out);
-	  C7S: conversor_7seg port map(cpu_out,HEX);
+	  C7S: conversor_7seg port map(cpu_out,HEX0);
 	  
 	  process(rst, clk, cpu_out)
 	  begin
