@@ -115,7 +115,7 @@ begin
 		  when s4 => -- Accumulator = Register[dd]
 			 	
 			 en_acc <= '0';
-			 en_rf <= '1'; --Ativa que a saída do rf para ir para o acc
+			 en_rf  <= '1'; --Ativa que a saída do rf para ir para o acc
 			 
 			 state <= s1;
 		  when s5 => -- Register [dd] = Accumulator

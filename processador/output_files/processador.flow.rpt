@@ -1,6 +1,6 @@
 Flow report for processador
-Fri Jun 29 11:50:52 2018
-Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
+Fri Jun 29 19:14:47 2018
+Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
 ---------------------
@@ -37,26 +37,26 @@ applicable agreement for further details.
 
 
 
-+---------------------------------------------------------------------------------+
-; Flow Summary                                                                    ;
-+------------------------------------+--------------------------------------------+
-; Flow Status                        ; Successful - Fri Jun 29 11:50:43 2018      ;
-; Quartus II 64-Bit Version          ; 13.0.0 Build 156 04/24/2013 SJ Web Edition ;
-; Revision Name                      ; processador                                ;
-; Top-level Entity Name              ; cpu                                        ;
-; Family                             ; Cyclone II                                 ;
-; Device                             ; EP2C35F672C6                               ;
-; Timing Models                      ; Final                                      ;
-; Total logic elements               ; 0 / 33,216 ( 0 % )                         ;
-;     Total combinational functions  ; 0 / 33,216 ( 0 % )                         ;
-;     Dedicated logic registers      ; 0 / 33,216 ( 0 % )                         ;
-; Total registers                    ; 0                                          ;
-; Total pins                         ; 14 / 475 ( 3 % )                           ;
-; Total virtual pins                 ; 0                                          ;
-; Total memory bits                  ; 0 / 483,840 ( 0 % )                        ;
-; Embedded Multiplier 9-bit elements ; 0 / 70 ( 0 % )                             ;
-; Total PLLs                         ; 0 / 4 ( 0 % )                              ;
-+------------------------------------+--------------------------------------------+
++--------------------------------------------------------------------------------------+
+; Flow Summary                                                                         ;
++------------------------------------+-------------------------------------------------+
+; Flow Status                        ; Successful - Fri Jun 29 19:14:46 2018           ;
+; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
+; Revision Name                      ; processador                                     ;
+; Top-level Entity Name              ; cpu                                             ;
+; Family                             ; Cyclone II                                      ;
+; Device                             ; EP2C35F672C6                                    ;
+; Timing Models                      ; Final                                           ;
+; Total logic elements               ; 0                                               ;
+;     Total combinational functions  ; 0                                               ;
+;     Dedicated logic registers      ; 0                                               ;
+; Total registers                    ; 0                                               ;
+; Total pins                         ; 14                                              ;
+; Total virtual pins                 ; 0                                               ;
+; Total memory bits                  ; 0                                               ;
+; Embedded Multiplier 9-bit elements ; 0                                               ;
+; Total PLLs                         ; 0                                               ;
++------------------------------------+-------------------------------------------------+
 
 
 +-----------------------------------------+
@@ -64,7 +64,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 06/29/2018 11:49:47 ;
+; Start date & time ; 06/29/2018 19:14:42 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; processador         ;
 +-------------------+---------------------+
@@ -75,7 +75,7 @@ applicable agreement for further details.
 +-------------------------------------+---------------------------------------+---------------+-------------+------------+
 ; Assignment Name                     ; Value                                 ; Default Value ; Entity Name ; Section Id ;
 +-------------------------------------+---------------------------------------+---------------+-------------+------------+
-; COMPILER_SIGNATURE_ID               ; 141761634100313.153028378708180       ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID               ; 35719348726778.153031048204112        ; --            ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                    ; --            ; --          ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                     ; --            ; --          ; --         ;
 ; PARTITION_COLOR                     ; 16764057                              ; --            ; cpu         ; Top        ;
@@ -88,38 +88,29 @@ applicable agreement for further details.
 +-------------------------------------+---------------------------------------+---------------+-------------+------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------+
-; Flow Elapsed Time                                                                                                             ;
-+---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
-+---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:09     ; 1.0                     ; 4654 MB             ; 00:00:05                           ;
-; Fitter                    ; 00:00:28     ; 1.0                     ; 4929 MB             ; 00:00:16                           ;
-; Assembler                 ; 00:00:09     ; 1.0                     ; 4580 MB             ; 00:00:07                           ;
-; TimeQuest Timing Analyzer ; 00:00:06     ; 1.0                     ; 4564 MB             ; 00:00:03                           ;
-; Total                     ; 00:00:52     ; --                      ; --                  ; 00:00:31                           ;
-+---------------------------+--------------+-------------------------+---------------------+------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------+
+; Flow Elapsed Time                                                                                                        ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Analysis & Synthesis ; 00:00:05     ; 1.0                     ; 490 MB              ; 00:00:05                           ;
+; Total                ; 00:00:05     ; --                      ; --                  ; 00:00:05                           ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
-+----------------------------------------------------------------------------------------+
-; Flow OS Summary                                                                        ;
-+---------------------------+------------------+-----------+------------+----------------+
-; Module Name               ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
-+---------------------------+------------------+-----------+------------+----------------+
-; Analysis & Synthesis      ; DESKTOP-VJFBRI2  ; Windows 7 ; 6.2        ; x86_64         ;
-; Fitter                    ; DESKTOP-VJFBRI2  ; Windows 7 ; 6.2        ; x86_64         ;
-; Assembler                 ; DESKTOP-VJFBRI2  ; Windows 7 ; 6.2        ; x86_64         ;
-; TimeQuest Timing Analyzer ; DESKTOP-VJFBRI2  ; Windows 7 ; 6.2        ; x86_64         ;
-+---------------------------+------------------+-----------+------------+----------------+
++-----------------------------------------------------------------------------------+
+; Flow OS Summary                                                                   ;
++----------------------+------------------+-----------+------------+----------------+
+; Module Name          ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
++----------------------+------------------+-----------+------------+----------------+
+; Analysis & Synthesis ; Hemerson-PC      ; Windows 7 ; 6.1        ; x86_64         ;
++----------------------+------------------+-----------+------------+----------------+
 
 
 ------------
 ; Flow Log ;
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off processador -c processador
-quartus_fit --read_settings_files=off --write_settings_files=off processador -c processador
-quartus_asm --read_settings_files=off --write_settings_files=off processador -c processador
-quartus_sta processador -c processador
 
 
 
