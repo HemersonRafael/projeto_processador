@@ -1,13 +1,13 @@
-Analysis & Synthesis Status : Successful - Tue Jun 26 22:47:21 2018
+Analysis & Synthesis Status : Successful - Fri Jun 29 02:10:13 2018
 Quartus II 64-Bit Version : 13.0.0 Build 156 04/24/2013 SJ Web Edition
 Revision Name : processador
-Top-level Entity Name : dp
+Top-level Entity Name : cpu
 Family : Cyclone II
 Total logic elements : 0
     Total combinational functions : 0
     Dedicated logic registers : 0
 Total registers : 0
-Total pins : 10
+Total pins : 14
 Total virtual pins : 0
 Total memory bits : 0
 Embedded Multiplier 9-bit elements : 0

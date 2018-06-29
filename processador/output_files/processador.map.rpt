@@ -1,5 +1,5 @@
 Analysis & Synthesis report for processador
-Tue Jun 26 22:47:21 2018
+Fri Jun 29 02:10:13 2018
 Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
 
 
@@ -13,9 +13,13 @@ Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. General Register Statistics
-  9. Elapsed Time Per Partition
- 10. Analysis & Synthesis Messages
+  8. State Machine - |cpu|ctrl:controller|state
+  9. Registers Removed During Synthesis
+ 10. Removed Registers Triggering Further Register Optimizations
+ 11. General Register Statistics
+ 12. Port Connectivity Checks: "ctrl:controller"
+ 13. Elapsed Time Per Partition
+ 14. Analysis & Synthesis Messages
 
 
 
@@ -41,16 +45,16 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                    ;
 +------------------------------------+--------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Tue Jun 26 22:47:21 2018      ;
+; Analysis & Synthesis Status        ; Successful - Fri Jun 29 02:10:13 2018      ;
 ; Quartus II 64-Bit Version          ; 13.0.0 Build 156 04/24/2013 SJ Web Edition ;
 ; Revision Name                      ; processador                                ;
-; Top-level Entity Name              ; dp                                         ;
+; Top-level Entity Name              ; cpu                                        ;
 ; Family                             ; Cyclone II                                 ;
 ; Total logic elements               ; 0                                          ;
 ;     Total combinational functions  ; 0                                          ;
 ;     Dedicated logic registers      ; 0                                          ;
 ; Total registers                    ; 0                                          ;
-; Total pins                         ; 10                                         ;
+; Total pins                         ; 14                                         ;
 ; Total virtual pins                 ; 0                                          ;
 ; Total memory bits                  ; 0                                          ;
 ; Embedded Multiplier 9-bit elements ; 0                                          ;
@@ -64,7 +68,7 @@ applicable agreement for further details.
 ; Option                                                                     ; Setting            ; Default Value      ;
 +----------------------------------------------------------------------------+--------------------+--------------------+
 ; Device                                                                     ; EP2C35F672C6       ;                    ;
-; Top-level entity name                                                      ; dp                 ; processador        ;
+; Top-level entity name                                                      ; cpu                ; processador        ;
 ; Family name                                                                ; Cyclone II         ; Cyclone IV GX      ;
 ; Use smart compilation                                                      ; Off                ; Off                ;
 ; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
@@ -149,18 +153,20 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------+--------+
 ; Processors                 ; Number ;
 +----------------------------+--------+
-; Number detected on machine ; 2      ;
+; Number detected on machine ; 4      ;
 ; Maximum allowed            ; 1      ;
 +----------------------------+--------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                         ;
-+----------------------------------+-----------------+-----------------+---------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                  ; Library ;
-+----------------------------------+-----------------+-----------------+---------------------------------------------------------------+---------+
-; dp.vhdl                          ; yes             ; User VHDL File  ; C:/Users/carva/Desktop/ProjetoProcessador/processador/dp.vhdl ;         ;
-+----------------------------------+-----------------+-----------------+---------------------------------------------------------------+---------+
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                             ;
++----------------------------------+-----------------+-----------------+-------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                      ; Library ;
++----------------------------------+-----------------+-----------------+-------------------------------------------------------------------+---------+
+; dp.vhdl                          ; yes             ; User VHDL File  ; C:/Users/Hemerson Rafael/ProjetoProcessador/processador/dp.vhdl   ;         ;
+; ctrl.vhdl                        ; yes             ; User VHDL File  ; C:/Users/Hemerson Rafael/ProjetoProcessador/processador/ctrl.vhdl ;         ;
+; cpu.vhdl                         ; yes             ; User VHDL File  ; C:/Users/Hemerson Rafael/ProjetoProcessador/processador/cpu.vhdl  ;         ;
++----------------------------------+-----------------+-----------------+-------------------------------------------------------------------+---------+
 
 
 +-----------------------------------------------------+
@@ -183,7 +189,7 @@ Parallel compilation was disabled, but you have multiple processors available. E
 ;     -- Dedicated logic registers            ; 0     ;
 ;     -- I/O registers                        ; 0     ;
 ;                                             ;       ;
-; I/O pins                                    ; 10    ;
+; I/O pins                                    ; 14    ;
 ; Embedded Multiplier 9-bit elements          ; 0     ;
 +---------------------------------------------+-------+
 
@@ -193,9 +199,80 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
 ; Compilation Hierarchy Node ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Library Name ;
 +----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
-; |dp                        ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 10   ; 0            ; |dp                 ;              ;
+; |cpu                       ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 14   ; 0            ; |cpu                ;              ;
 +----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |cpu|ctrl:controller|state                                                                                                                              ;
++-----------+-----------+-----------+-----------+-----------+----------+----------+----------+----------+----------+----------+----------+----------+----------+----------+
+; Name      ; state.s13 ; state.s12 ; state.s11 ; state.s10 ; state.s9 ; state.s8 ; state.s7 ; state.s6 ; state.s5 ; state.s4 ; state.s3 ; state.s2 ; state.s1 ; state.s0 ;
++-----------+-----------+-----------+-----------+-----------+----------+----------+----------+----------+----------+----------+----------+----------+----------+----------+
+; state.s0  ; 0         ; 0         ; 0         ; 0         ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ;
+; state.s1  ; 0         ; 0         ; 0         ; 0         ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1        ; 1        ;
+; state.s2  ; 0         ; 0         ; 0         ; 0         ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1        ; 0        ; 1        ;
+; state.s3  ; 0         ; 0         ; 0         ; 0         ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1        ; 0        ; 0        ; 1        ;
+; state.s4  ; 0         ; 0         ; 0         ; 0         ; 0        ; 0        ; 0        ; 0        ; 0        ; 1        ; 0        ; 0        ; 0        ; 1        ;
+; state.s5  ; 0         ; 0         ; 0         ; 0         ; 0        ; 0        ; 0        ; 0        ; 1        ; 0        ; 0        ; 0        ; 0        ; 1        ;
+; state.s6  ; 0         ; 0         ; 0         ; 0         ; 0        ; 0        ; 0        ; 1        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1        ;
+; state.s7  ; 0         ; 0         ; 0         ; 0         ; 0        ; 0        ; 1        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1        ;
+; state.s8  ; 0         ; 0         ; 0         ; 0         ; 0        ; 1        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1        ;
+; state.s9  ; 0         ; 0         ; 0         ; 0         ; 1        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1        ;
+; state.s10 ; 0         ; 0         ; 0         ; 1         ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1        ;
+; state.s11 ; 0         ; 0         ; 1         ; 0         ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1        ;
+; state.s12 ; 0         ; 1         ; 0         ; 0         ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1        ;
+; state.s13 ; 1         ; 0         ; 0         ; 0         ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1        ;
++-----------+-----------+-----------+-----------+-----------+----------+----------+----------+----------+----------+----------+----------+----------+----------+----------+
+
+
++---------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                              ;
++----------------------------------------+----------------------------------------+
+; Register name                          ; Reason for Removal                     ;
++----------------------------------------+----------------------------------------+
+; ctrl:controller|OPCODE[2]              ; Stuck at GND due to stuck port data_in ;
+; ctrl:controller|OPCODE[0,1]            ; Merged with ctrl:controller|OPCODE[3]  ;
+; g~reg0                                 ; Stuck at VCC due to stuck port data_in ;
+; f~reg0                                 ; Stuck at GND due to stuck port data_in ;
+; e~reg0                                 ; Stuck at GND due to stuck port data_in ;
+; d~reg0                                 ; Stuck at GND due to stuck port data_in ;
+; c~reg0                                 ; Stuck at GND due to stuck port data_in ;
+; b~reg0                                 ; Stuck at GND due to stuck port data_in ;
+; a~reg0                                 ; Stuck at GND due to stuck port data_in ;
+; output[0]~reg0                         ; Stuck at GND due to stuck port data_in ;
+; output[1]~reg0                         ; Stuck at GND due to stuck port data_in ;
+; output[2]~reg0                         ; Stuck at GND due to stuck port data_in ;
+; output[3]~reg0                         ; Stuck at GND due to stuck port data_in ;
+; ctrl:controller|state.s4               ; Lost fanout                            ;
+; ctrl:controller|state.s5               ; Lost fanout                            ;
+; ctrl:controller|state.s6               ; Lost fanout                            ;
+; ctrl:controller|state.s7               ; Lost fanout                            ;
+; ctrl:controller|state.s8               ; Lost fanout                            ;
+; ctrl:controller|state.s9               ; Lost fanout                            ;
+; ctrl:controller|state.s10              ; Lost fanout                            ;
+; ctrl:controller|state.s11              ; Lost fanout                            ;
+; ctrl:controller|state.s12              ; Lost fanout                            ;
+; ctrl:controller|state.s13              ; Lost fanout                            ;
+; ctrl:controller|OPCODE[3]              ; Lost fanout                            ;
+; ctrl:controller|PC[0..31]              ; Lost fanout                            ;
+; ctrl:controller|state.s0               ; Lost fanout                            ;
+; ctrl:controller|state.s1               ; Lost fanout                            ;
+; ctrl:controller|state.s2               ; Lost fanout                            ;
+; ctrl:controller|state.s3               ; Lost fanout                            ;
+; Total Number of Removed Registers = 61 ;                                        ;
++----------------------------------------+----------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                 ;
++--------------------------+--------------------+-----------------------------------------------------------------------------+
+; Register name            ; Reason for Removal ; Registers Removed due to This Register                                      ;
++--------------------------+--------------------+-----------------------------------------------------------------------------+
+; ctrl:controller|state.s6 ; Lost Fanouts       ; ctrl:controller|OPCODE[3], ctrl:controller|PC[0], ctrl:controller|state.s1, ;
+;                          ;                    ; ctrl:controller|state.s3                                                    ;
++--------------------------+--------------------+-----------------------------------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -213,6 +290,15 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 
 
++---------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "ctrl:controller"                                                                                           ;
++--------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; Port   ; Type   ; Severity ; Details                                                                                                  ;
++--------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; alu_st ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
++--------+--------+----------+----------------------------------------------------------------------------------------------------------+
+
+
 +-------------------------------+
 ; Elapsed Time Per Partition    ;
 +----------------+--------------+
@@ -228,51 +314,60 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
-    Info: Processing started: Tue Jun 26 22:47:15 2018
+    Info: Processing started: Fri Jun 29 02:10:11 2018
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off processador -c processador
 Warning (20028): Parallel compilation is not licensed and has been disabled
-Info (12021): Found 2 design units, including 1 entities, in source file processador.vhd
-    Info (12022): Found design unit 1: processador-hardware
-    Info (12023): Found entity 1: processador
-Info (12021): Found 8 design units, including 4 entities, in source file dp.vhdl
-    Info (12022): Found design unit 1: alu-bhv
-    Info (12022): Found design unit 2: acc-bhv
-    Info (12022): Found design unit 3: rf-bhv
-    Info (12022): Found design unit 4: dp-rtl2
-    Info (12023): Found entity 1: alu
-    Info (12023): Found entity 2: acc
-    Info (12023): Found entity 3: rf
-    Info (12023): Found entity 4: dp
+Info (12021): Found 2 design units, including 1 entities, in source file dp.vhdl
+    Info (12022): Found design unit 1: dp-rtl2
+    Info (12023): Found entity 1: dp
 Info (12021): Found 2 design units, including 1 entities, in source file ctrl.vhdl
     Info (12022): Found design unit 1: ctrl-fsm
     Info (12023): Found entity 1: ctrl
 Info (12021): Found 2 design units, including 1 entities, in source file cpu.vhdl
     Info (12022): Found design unit 1: cpu-struc
     Info (12023): Found entity 1: cpu
-Info (12127): Elaborating entity "dp" for the top level hierarchy
-Warning (10541): VHDL Signal Declaration warning at dp.vhdl(182): used implicit default value for signal "alu_out" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
-Warning (10492): VHDL Process Statement warning at dp.vhdl(201): signal "alu_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Info (12021): Found 2 design units, including 1 entities, in source file rf.vhd
+    Info (12022): Found design unit 1: rf-bhv
+    Info (12023): Found entity 1: rf
+Info (12021): Found 2 design units, including 1 entities, in source file alu.vhd
+    Info (12022): Found design unit 1: alu-bhv
+    Info (12023): Found entity 1: alu
+Info (12021): Found 2 design units, including 1 entities, in source file acc.vhd
+    Info (12022): Found design unit 1: acc-bhv
+    Info (12023): Found entity 1: acc
+Info (12127): Elaborating entity "cpu" for the top level hierarchy
+Info (12128): Elaborating entity "ctrl" for hierarchy "ctrl:controller"
+Warning (10541): VHDL Signal Declaration warning at ctrl.vhdl(11): used implicit default value for signal "alu_st" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
+Info (12128): Elaborating entity "dp" for hierarchy "dp:datapath"
+Warning (10541): VHDL Signal Declaration warning at dp.vhdl(47): used implicit default value for signal "alu_out" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
+Warning (10492): VHDL Process Statement warning at dp.vhdl(66): signal "alu_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "output_4[0]" is stuck at GND
-    Warning (13410): Pin "output_4[1]" is stuck at GND
-    Warning (13410): Pin "output_4[2]" is stuck at GND
-    Warning (13410): Pin "output_4[3]" is stuck at GND
+    Warning (13410): Pin "output[0]" is stuck at GND
+    Warning (13410): Pin "output[1]" is stuck at GND
+    Warning (13410): Pin "output[2]" is stuck at GND
+    Warning (13410): Pin "output[3]" is stuck at GND
+    Warning (13410): Pin "a" is stuck at GND
+    Warning (13410): Pin "b" is stuck at GND
+    Warning (13410): Pin "c" is stuck at GND
+    Warning (13410): Pin "d" is stuck at GND
+    Warning (13410): Pin "e" is stuck at GND
+    Warning (13410): Pin "f" is stuck at GND
+    Warning (13410): Pin "g" is stuck at VCC
+Info (17049): 47 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 6 input pin(s) that do not drive logic
+Warning (21074): Design contains 3 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "rst"
+    Warning (15610): No output dependent on input pin "start"
     Warning (15610): No output dependent on input pin "clk"
-    Warning (15610): No output dependent on input pin "imm[0]"
-    Warning (15610): No output dependent on input pin "imm[1]"
-    Warning (15610): No output dependent on input pin "imm[2]"
-    Warning (15610): No output dependent on input pin "imm[3]"
-Info (21057): Implemented 10 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 6 input pins
-    Info (21059): Implemented 4 output pins
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 15 warnings
-    Info: Peak virtual memory: 4662 megabytes
-    Info: Processing ended: Tue Jun 26 22:47:22 2018
-    Info: Elapsed time: 00:00:07
-    Info: Total CPU time (on all processors): 00:00:05
+Info (21057): Implemented 14 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 3 input pins
+    Info (21059): Implemented 11 output pins
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 21 warnings
+    Info: Peak virtual memory: 4660 megabytes
+    Info: Processing ended: Fri Jun 29 02:10:13 2018
+    Info: Elapsed time: 00:00:02
+    Info: Total CPU time (on all processors): 00:00:01
 
 

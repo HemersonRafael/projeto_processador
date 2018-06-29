@@ -1,4 +1,91 @@
-|dp
+|cpu
+rst => ctrl:controller.rst
+rst => dp:datapath.rst
+start => ctrl:controller.start
+clk => ctrl:controller.clk
+clk => g~reg0.CLK
+clk => f~reg0.CLK
+clk => e~reg0.CLK
+clk => d~reg0.CLK
+clk => c~reg0.CLK
+clk => b~reg0.CLK
+clk => a~reg0.CLK
+clk => output[0]~reg0.CLK
+clk => output[1]~reg0.CLK
+clk => output[2]~reg0.CLK
+clk => output[3]~reg0.CLK
+clk => dp:datapath.clk
+output[0] <= output[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+output[1] <= output[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+output[2] <= output[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+output[3] <= output[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+a <= a~reg0.DB_MAX_OUTPUT_PORT_TYPE
+b <= b~reg0.DB_MAX_OUTPUT_PORT_TYPE
+c <= c~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d <= d~reg0.DB_MAX_OUTPUT_PORT_TYPE
+e <= e~reg0.DB_MAX_OUTPUT_PORT_TYPE
+f <= f~reg0.DB_MAX_OUTPUT_PORT_TYPE
+g <= g~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|cpu|ctrl:controller
+rst => ~NO_FANOUT~
+start => Selector36.IN5
+start => state.DATAB
+clk => imm[0]~reg0.CLK
+clk => imm[1]~reg0.CLK
+clk => imm[2]~reg0.CLK
+clk => imm[3]~reg0.CLK
+clk => ADDRESS[0].CLK
+clk => ADDRESS[1].CLK
+clk => ADDRESS[2].CLK
+clk => ADDRESS[3].CLK
+clk => OPCODE[0].CLK
+clk => OPCODE[1].CLK
+clk => OPCODE[2].CLK
+clk => OPCODE[3].CLK
+clk => PC[0].CLK
+clk => PC[1].CLK
+clk => PC[2].CLK
+clk => PC[3].CLK
+clk => PC[4].CLK
+clk => PC[5].CLK
+clk => PC[6].CLK
+clk => PC[7].CLK
+clk => PC[8].CLK
+clk => PC[9].CLK
+clk => PC[10].CLK
+clk => PC[11].CLK
+clk => PC[12].CLK
+clk => PC[13].CLK
+clk => PC[14].CLK
+clk => PC[15].CLK
+clk => PC[16].CLK
+clk => PC[17].CLK
+clk => PC[18].CLK
+clk => PC[19].CLK
+clk => PC[20].CLK
+clk => PC[21].CLK
+clk => PC[22].CLK
+clk => PC[23].CLK
+clk => PC[24].CLK
+clk => PC[25].CLK
+clk => PC[26].CLK
+clk => PC[27].CLK
+clk => PC[28].CLK
+clk => PC[29].CLK
+clk => PC[30].CLK
+clk => PC[31].CLK
+clk => state~1.DATAIN
+imm[0] <= imm[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+imm[1] <= imm[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+imm[2] <= imm[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+imm[3] <= imm[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+alu_st[0] <= comb.DB_MAX_OUTPUT_PORT_TYPE
+alu_st[1] <= alu_st[1].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|cpu|dp:datapath
 rst => ~NO_FANOUT~
 clk => ~NO_FANOUT~
 imm[0] => ~NO_FANOUT~

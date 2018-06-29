@@ -1,9 +1,11 @@
--- cpu (top level entity)
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.std_logic_arith.all;
 
--- these should probably stay the same
+-- Unidade Central de Processamento (UCP)
+-- Central Processing Unit(CPU)
+-- cpu (top level entity)
+
 entity cpu is
    port ( 
 			rst           : in  STD_LOGIC;
@@ -11,20 +13,18 @@ entity cpu is
          clk           : in  STD_LOGIC;
 			output        : out STD_LOGIC_VECTOR(3 downto 0);
        	a,b,c,d,e,f,g : out std_logic
-          -- add ports as required
+          
         );
 end cpu;
 
--- these will change as your design grows
 architecture struc of cpu is
 
 component ctrl 
    port ( rst   : in STD_LOGIC;
 			 start : in STD_LOGIC;
           clk   : in STD_LOGIC;
-          imm   : out std_logic_vector(3 downto 0);
-			 alu_st: out std_logic_vector(1 downto 0) -- especifica qual operação deve ser feita com a ALU
-          -- add ports as required
+          imm   : out std_logic_vector(3 downto 0)
+          
         );
 end component;
 
@@ -34,38 +34,29 @@ component dp
          clk     : in STD_LOGIC;
 			imm     : in std_logic_vector(3 downto 0);
          output_4: out STD_LOGIC_VECTOR (3 downto 0)
-          -- add ports as required
+          
         );
 end component;
 
 
 signal immediate : std_logic_vector(3 downto 0);
-signal cpu_out   : std_logic_vector(3 downto 0);
-signal alu_sele  : std_logic_vector(1 downto 0);
+signal cpu_out : std_logic_vector(3 downto 0);
 
 begin
 
--- notice how the output from the datapath is tied to a signal
--- this output signal is then used as input for a decoder.
--- we can also see the output as "output".
--- the output from the datapath should be coming from the accumulator.
--- this is because all actions take place on the accumulator, including
--- all results of any alu operation. naturally, this is because of the 
--- nature of the instruction set.
 
-  controller: ctrl port map(rst, start, clk, immediate, alu_sele);
+
+  controller: ctrl port map(rst, start, clk,immediate);
   datapath: dp port map(rst, clk, immediate, cpu_out);
 
 
   process(rst, clk, cpu_out)
   begin
 
-    -- take care of rst case here
 
     if(clk'event and clk='1') then
     output <= cpu_out;
-    -- this acts like a BCD to 7-segment decoder,
-    -- can see output in waveforms as cpu_out
+    
        case cpu_out is
          when "0000" =>
            a <= '0'; 

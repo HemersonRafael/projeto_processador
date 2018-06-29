@@ -1,0 +1,31 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.std_logic_arith.all;
+
+entity alu is
+  port ( rst   : in STD_LOGIC;
+         clk   : in STD_LOGIC;
+         imm   : in std_logic_vector(3 downto 0); 
+			alu_st: in std_logic_vector(1 downto 0);			
+         output: out STD_LOGIC_VECTOR (3 downto 0)			
+         -- insert ports as need be
+       );
+end alu;
+
+architecture bhv of alu is
+begin
+	process (rst, clk)
+	begin
+	  -- take care of rst state
+	  case alu_st is
+	  
+	  when "00" => output <= imm;
+	 -- when "01" => output <= ;
+	 -- when "00" => output <= imm;
+	  
+	  -- add functionality as required
+	  end case;
+	  output <= imm;
+	end process;
+
+end bhv;
