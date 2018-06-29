@@ -22,7 +22,7 @@ begin
 	process (rst, clk, alu_st)
 	begin
 		if(rst = '1') then
-			output = "0000";
+			output <= "0000";
 		elsif(clk'event and clk = '1')then
 			case alu_st is
 			  -- Accumulator = Register [dd]
