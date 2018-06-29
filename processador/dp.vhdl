@@ -33,14 +33,15 @@ component rf is
 end component;
 
 component alu is
-  port ( rst   		: in  STD_LOGIC;
-			clk   		: in  STD_LOGIC;
-			inputAcc 	: in  STD_LOGIC_VECTOR (3 downto 0);
-			inputReg 	: in  STD_LOGIC_VECTOR (3 downto 0);
-         imm   		: in  std_logic_vector (3 downto 0); 
-			alu_st		: in  std_logic_vector (3 downto 0);			
-         output		: out STD_LOGIC_VECTOR (3 downto 0)
-   );
+	port ( 
+		rst   		: in  STD_LOGIC;
+		clk   		: in  STD_LOGIC;
+		inputAcc 	: in  STD_LOGIC_VECTOR (3 downto 0);
+		inputReg 	: in  STD_LOGIC_VECTOR (3 downto 0);
+		imm   		: in  std_logic_vector (3 downto 0); 
+		alu_st		: in  std_logic_vector (3 downto 0);			
+		output		: out STD_LOGIC_VECTOR (3 downto 0)			
+	);
 end component;
 
 signal alu_out: std_logic_vector(3 downto 0);
