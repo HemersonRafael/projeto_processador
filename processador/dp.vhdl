@@ -2,10 +2,12 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 -- Bloco operacional (Datapath)
 entity dp is
-  port ( rst     : in STD_LOGIC;
-         clk     : in STD_LOGIC;
-         imm     : in std_logic_vector(3 downto 0);
-         output_4: out STD_LOGIC_VECTOR (3 downto 0)
+  port ( rst     	: in STD_LOGIC;
+         clk     	: in STD_LOGIC;
+         imm     	: in std_logic_vector(3 downto 0);
+			sel_rf_dp: in std_logic_vector(1 downto 0);
+			alu_st_dp: out std_logic_vector(3 downto 0);
+         output_4	: out STD_LOGIC_VECTOR (3 downto 0)
          
        );
 end dp;

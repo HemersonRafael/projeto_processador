@@ -9,10 +9,18 @@ entity ctrl is
          start : in STD_LOGIC;
          clk   : in STD_LOGIC;       
          imm   : out std_logic_vector(3 downto 0);
-			alu_st: out std_logic_vector(1 downto 0) -- especifica qual operação deve ser feita com a ALU
 			
+			-- SINAIS PARA CONTROLAR O DATAPATHH
+			alu_st_ctrl: out std_logic_vector(3 downto 0); -- especifica qual operação deve ser feita com a ALU
+			sel_rf_ctrl: out std_logic_vector(1 downto 0);  -- especifica qual registrador será usado no rf 
+			en_rf		  : out std_logic;						  -- Enable do rf
+			en_acc	  : out std_logic 						  -- Enable do acc
+				
        );
 end ctrl;
+
+--Para carregas:
+-- en_acc = 1, en_rf = 0, tem de passar um valor para acc, que é o imm
 
 architecture fsm of ctrl is
   
@@ -105,36 +113,72 @@ begin
 			-- you add more states here.
         
 		  when s4 => -- Accumulator = Register[dd]
-		  
+			 	
+			 en_acc <= '0';
+			 en_rf <= '1'; --Ativa que a saída do rf para ir para o acc
+			 
 			 state <= s1;
 		  when s5 => -- Register [dd] = Accumulator
-		  
+			 
+			 sel_rf_ctrl <= ADDRESS(3 downto 2);
+			 
+			 en_acc <= '1'; -- Ativa que a saida do acc vá para o rf
+			 en_rf <= '0';
+			 
 			 state <= s1;
-        when s6 => --Accumulator = Immediate    -- load iiii
-          imm <= address;                       -- set the immediate port
-                                                -- to the lower_ir
+        when s6 => --Accumulator = Immediate    
+          imm <= address;
+			 
+          en_acc <= '0';
+			 en_rf <= '0';
+			 
           state <= s1;
 		  when s7 => --Accumulator = Accumulator + Register[dd]
-		  
+		    
+			 en_acc <= '1';
+			 en_rf <= '1';
+			 
+			 alu_st_ctrl <= "0011";
+			 
 			 state <= s1;	
-		  when s8 => --Accumulator = Accumulator - Register[dd]
-		  
+			when s8 => --Accumulator = Accumulator - Register[dd]
+				
+			 en_acc <= '1';
+			 en_rf <= '1';
+			 
+			 alu_st_ctrl <= "0100";
+	
 			 state <= s1;
 		  when s9 => --Accumulator = Accumulator AND Register[dd]
 		  
+		    en_acc <= '1';
+			 en_rf <= '1';
+			 
+			 alu_st_ctrl <= "0101";
+	
 			 state <= s1;
 		  when s10 => --Accumulator = Accumulator OR Register[dd] 
-		  
+		    
+			 en_acc <= '1';
+			 en_rf <= '1';
+			 
+			 alu_st_ctrl <= "0110";
+			 
 			 state <= s1;
 		  when s11 => --PC = Address[aaaa] 
-		  
+			 -- Não entendi!
+		    --PC := ADDRESS;
 			 state <= s1;
 		  when s12 => --Accumulator = NOT Accumulator 
-		  
+		    en_acc <= '1';
+			 en_rf <= '1';
+			 
+			 alu_st_ctrl <= "1000";
+			 
 			 state <= s1;
         when s13 =>  --Stop execution
-          state <= s1;
-          
+		  
+          state <= s1;     
         when done =>                            -- stay here forever
           state <= done;
           

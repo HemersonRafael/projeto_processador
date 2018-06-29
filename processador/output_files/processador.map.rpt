@@ -1,5 +1,5 @@
 Analysis & Synthesis report for processador
-Fri Jun 29 03:57:35 2018
+Fri Jun 29 11:49:58 2018
 Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
 
 
@@ -17,9 +17,10 @@ Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
   9. Registers Removed During Synthesis
  10. Removed Registers Triggering Further Register Optimizations
  11. General Register Statistics
- 12. Port Connectivity Checks: "ctrl:controller"
- 13. Elapsed Time Per Partition
- 14. Analysis & Synthesis Messages
+ 12. Port Connectivity Checks: "dp:datapath"
+ 13. Port Connectivity Checks: "ctrl:controller"
+ 14. Elapsed Time Per Partition
+ 15. Analysis & Synthesis Messages
 
 
 
@@ -45,7 +46,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                    ;
 +------------------------------------+--------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Jun 29 03:57:35 2018      ;
+; Analysis & Synthesis Status        ; Successful - Fri Jun 29 11:49:58 2018      ;
 ; Quartus II 64-Bit Version          ; 13.0.0 Build 156 04/24/2013 SJ Web Edition ;
 ; Revision Name                      ; processador                                ;
 ; Top-level Entity Name              ; cpu                                        ;
@@ -153,20 +154,20 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------+--------+
 ; Processors                 ; Number ;
 +----------------------------+--------+
-; Number detected on machine ; 4      ;
+; Number detected on machine ; 2      ;
 ; Maximum allowed            ; 1      ;
 +----------------------------+--------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                       ;
-+----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                                ; Library ;
-+----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------+---------+
-; dp.vhdl                          ; yes             ; User VHDL File  ; C:/Users/Hemerson Rafael/Documents/ProjetoProcessador/processador/dp.vhdl   ;         ;
-; ctrl.vhdl                        ; yes             ; User VHDL File  ; C:/Users/Hemerson Rafael/Documents/ProjetoProcessador/processador/ctrl.vhdl ;         ;
-; cpu.vhdl                         ; yes             ; User VHDL File  ; C:/Users/Hemerson Rafael/Documents/ProjetoProcessador/processador/cpu.vhdl  ;         ;
-+----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------+---------+
++--------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                           ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                    ; Library ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------+---------+
+; dp.vhdl                          ; yes             ; User VHDL File  ; C:/Users/carva/Desktop/ProjetoProcessador/processador/dp.vhdl   ;         ;
+; ctrl.vhdl                        ; yes             ; User VHDL File  ; C:/Users/carva/Desktop/ProjetoProcessador/processador/ctrl.vhdl ;         ;
+; cpu.vhdl                         ; yes             ; User VHDL File  ; C:/Users/carva/Desktop/ProjetoProcessador/processador/cpu.vhdl  ;         ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------+---------+
 
 
 +-----------------------------------------------------+
@@ -233,7 +234,7 @@ Encoding Type:  One-Hot
 ; Register name                          ; Reason for Removal                     ;
 +----------------------------------------+----------------------------------------+
 ; ctrl:controller|OPCODE[2]              ; Stuck at GND due to stuck port data_in ;
-; ctrl:controller|OPCODE[0,1]            ; Merged with ctrl:controller|OPCODE[3]  ;
+; ctrl:controller|OPCODE[1,3]            ; Merged with ctrl:controller|OPCODE[0]  ;
 ; g~reg0                                 ; Stuck at VCC due to stuck port data_in ;
 ; f~reg0                                 ; Stuck at GND due to stuck port data_in ;
 ; e~reg0                                 ; Stuck at GND due to stuck port data_in ;
@@ -255,7 +256,7 @@ Encoding Type:  One-Hot
 ; ctrl:controller|state.s11              ; Lost fanout                            ;
 ; ctrl:controller|state.s12              ; Lost fanout                            ;
 ; ctrl:controller|state.s13              ; Lost fanout                            ;
-; ctrl:controller|OPCODE[3]              ; Lost fanout                            ;
+; ctrl:controller|OPCODE[0]              ; Lost fanout                            ;
 ; ctrl:controller|PC[0..31]              ; Lost fanout                            ;
 ; ctrl:controller|state.s0               ; Lost fanout                            ;
 ; ctrl:controller|state.s1               ; Lost fanout                            ;
@@ -270,7 +271,7 @@ Encoding Type:  One-Hot
 +--------------------------+--------------------+-----------------------------------------------------------------------------+
 ; Register name            ; Reason for Removal ; Registers Removed due to This Register                                      ;
 +--------------------------+--------------------+-----------------------------------------------------------------------------+
-; ctrl:controller|state.s6 ; Lost Fanouts       ; ctrl:controller|OPCODE[3], ctrl:controller|PC[0], ctrl:controller|state.s1, ;
+; ctrl:controller|state.s6 ; Lost Fanouts       ; ctrl:controller|OPCODE[0], ctrl:controller|PC[0], ctrl:controller|state.s1, ;
 ;                          ;                    ; ctrl:controller|state.s3                                                    ;
 +--------------------------+--------------------+-----------------------------------------------------------------------------+
 
@@ -290,13 +291,26 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "ctrl:controller"                                                                                           ;
-+--------+--------+----------+----------------------------------------------------------------------------------------------------------+
-; Port   ; Type   ; Severity ; Details                                                                                                  ;
-+--------+--------+----------+----------------------------------------------------------------------------------------------------------+
-; alu_st ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
-+--------+--------+----------+----------------------------------------------------------------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "dp:datapath"                                                                                                                                      ;
++-----------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; Port      ; Type   ; Severity ; Details                                                                                                                                      ;
++-----------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; sel_rf_dp ; Input  ; Warning  ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; alu_st_dp ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                     ;
++-----------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "ctrl:controller"                                                                                                ;
++-------------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; Port        ; Type   ; Severity ; Details                                                                                                  ;
++-------------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; alu_st_ctrl ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; sel_rf_ctrl ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; en_rf       ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; en_acc      ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
++-------------+--------+----------+----------------------------------------------------------------------------------------------------------+
 
 
 +-------------------------------+
@@ -304,7 +318,7 @@ Encoding Type:  One-Hot
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:00     ;
+; Top            ; 00:00:01     ;
 +----------------+--------------+
 
 
@@ -314,7 +328,7 @@ Encoding Type:  One-Hot
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
-    Info: Processing started: Fri Jun 29 03:57:34 2018
+    Info: Processing started: Fri Jun 29 11:49:46 2018
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off processador -c processador
 Warning (20028): Parallel compilation is not licensed and has been disabled
 Info (12021): Found 2 design units, including 1 entities, in source file dp.vhdl
@@ -337,11 +351,11 @@ Info (12021): Found 2 design units, including 1 entities, in source file acc.vhd
     Info (12023): Found entity 1: acc
 Info (12127): Elaborating entity "cpu" for the top level hierarchy
 Info (12128): Elaborating entity "ctrl" for hierarchy "ctrl:controller"
-Warning (10541): VHDL Signal Declaration warning at ctrl.vhdl(12): used implicit default value for signal "alu_st" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
 Info (12128): Elaborating entity "dp" for hierarchy "dp:datapath"
-Warning (10541): VHDL Signal Declaration warning at dp.vhdl(46): used implicit default value for signal "alu_out" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
-Warning (10492): VHDL Process Statement warning at dp.vhdl(65): signal "alu_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
-Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (10541): VHDL Signal Declaration warning at dp.vhdl(9): used implicit default value for signal "alu_st_dp" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
+Warning (10541): VHDL Signal Declaration warning at dp.vhdl(49): used implicit default value for signal "alu_out" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
+Warning (10492): VHDL Process Statement warning at dp.vhdl(68): signal "alu_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (12241): 2 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "output[0]" is stuck at GND
     Warning (13410): Pin "output[1]" is stuck at GND
@@ -366,8 +380,8 @@ Info (21057): Implemented 14 device resources after synthesis - the final resour
     Info (21059): Implemented 11 output pins
 Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 21 warnings
     Info: Peak virtual memory: 4659 megabytes
-    Info: Processing ended: Fri Jun 29 03:57:35 2018
-    Info: Elapsed time: 00:00:01
-    Info: Total CPU time (on all processors): 00:00:01
+    Info: Processing ended: Fri Jun 29 11:49:58 2018
+    Info: Elapsed time: 00:00:12
+    Info: Total CPU time (on all processors): 00:00:05
 
 
