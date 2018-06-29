@@ -25,28 +25,27 @@ architecture bhv of alu is
 					output <= "0000";
 				elsif(clk'event and clk = '1')then
 					case alu_st is
-					  -- Accumulator = Register [dd]
-					  when "0000" => output <= inputReg;
-					  -- Register [dd] = Accumulator
-					  when "0001" => output <= inputAcc;
-					  -- Accumulator = Immediate
-					  when "0010" => output <= imm;
-					  -- Accumulator = Accumulator + Register[dd]
-					  when "0011" => output <= inputAcc + inputReg;
-					  -- Accumulator = Accumulator - Register[dd]
-					  when "0100" => output <= inputAcc - inputReg;
-					  -- Accumulator = Accumulator AND Register[dd]
-					  when "0101" => output <= inputAcc and inputReg;
-					  -- Accumulator = Accumulator OR Register[dd]
-					  when "0110" => output <= inputAcc or inputReg;
-					  -- PC = Address[aaaa]
-					  when "0111" => output <= imm;
-					  -- Accumulator = NOT Accumulator
-					  when "1000" => output <= not inputAcc;
-					  -- Stop execution
-					  when "1001" => output <= imm;
-					  end case;
-					  output <= imm;	
+						-- Accumulator = Register [dd]
+						when "0000" => output <= inputReg;
+						-- Register [dd] = Accumulator
+						when "0001" => output <= inputAcc;
+						-- Accumulator = Immediate
+						when "0010" => output <= imm;
+						-- Accumulator = Accumulator + Register[dd]
+						when "0011" => output <= inputAcc + inputReg;
+						-- Accumulator = Accumulator - Register[dd]
+						when "0100" => output <= inputAcc - inputReg;
+						-- Accumulator = Accumulator AND Register[dd]
+						when "0101" => output <= inputAcc and inputReg;
+						-- Accumulator = Accumulator OR Register[dd]
+						when "0110" => output <= inputAcc or inputReg;
+						-- PC = Address[aaaa]
+						when "0111" => output <= inputAcc;
+						-- Accumulator = NOT Accumulator
+						when "1000" => output <= not inputAcc;
+						-- Stop execution
+						when "1001" => output <= "1111";
+					end case; 	
 				end if;
 		end process;
 	-- end begin 
