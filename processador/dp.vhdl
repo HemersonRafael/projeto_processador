@@ -15,23 +15,24 @@ end dp;
 architecture rtl2 of dp is
 
 component acc is
-  port ( rst   : in STD_LOGIC;
-         clk   : in STD_LOGIC;
-         input : in STD_LOGIC_VECTOR (3 downto 0);
-         enb   : in STD_LOGIC;
-         output: out STD_LOGIC_VECTOR (3 downto 0)
-       );
+	port ( 
+		rst   	: in STD_LOGIC;
+		clk   	: in STD_LOGIC;
+		input 	: in STD_LOGIC_VECTOR (3 downto 0);
+		enb   	: in STD_LOGIC;
+		output	: out STD_LOGIC_VECTOR (3 downto 0)
+   );
 end component;
 
 component rf is
-  port ( rst    : in STD_LOGIC;
-         clk    : in STD_LOGIC;
-         input  : in std_logic_vector(3 downto 0); -- O que será escrito no registrador
-         sel    : in std_logic_vector(1 downto 0); -- em qual registrador será escrito 
-         enb    : in std_logic;
-         output : out std_logic_vector(3 downto 0)
-       );
-		
+	port (
+		rst    : in STD_LOGIC;
+		clk    : in STD_LOGIC;
+		input  : in std_logic_vector(3 downto 0); -- O que será escrito no registrador
+		sel    : in std_logic_vector(1 downto 0); -- em qual registrador será escrito 
+		enb    : in std_logic;
+		output : out std_logic_vector(3 downto 0)
+   );	
 end component;
 
 component alu is
@@ -56,13 +57,11 @@ begin
 
 	process (rst, clk, alu_out)
 		begin
-
 			-- this you should change so the output actually
 			-- comes from the accumulator so it follows the
 			-- instruction set. since the accumulator is always 
 			-- involved we want to be able to see the
 			-- results/data changes on the acc.
-
 			-- take care of reset state
 		  
 			output_4 <= alu_out;

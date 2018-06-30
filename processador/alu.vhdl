@@ -39,12 +39,8 @@ architecture bhv of alu is
 						when "0101" => output <= inputAcc and inputReg;
 						-- Accumulator = Accumulator OR Register[dd]
 						when "0110" => output <= inputAcc or inputReg;
-						-- PC = Address[aaaa]
-						when "0111" => output <= inputAcc;
 						-- Accumulator = NOT Accumulator
 						when "1000" => output <= not inputAcc;
-						-- Stop execution
-						when "1001" => output <= "1111";
 					end case; 	
 				end if;
 		end process;
