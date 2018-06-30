@@ -41,6 +41,8 @@ ld files
 *_summary.xml
 *_usage.xml
 *_xst.xrpt
+*.vhdl.bak
+*.vhd.bak
 
 # iMPACT generated files
 _impactbatch.log
@@ -69,3 +71,4 @@ _xmsgs/
 # Adicionais
 processador/db/
 processador/incremental_db/
+processador/output_files
