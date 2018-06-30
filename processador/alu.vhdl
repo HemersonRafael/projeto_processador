@@ -9,10 +9,9 @@ entity alu is
 	port ( 
 		rst   		: in  STD_LOGIC;
 		clk   		: in  STD_LOGIC;
-		inputAcc 	: in  STD_LOGIC_VECTOR (3 downto 0); -- input vem do Accumulator
-		inputReg 	: in  STD_LOGIC_VECTOR (3 downto 0); -- input vem do Registrador
-		imm   		: in  std_logic_vector (3 downto 0);
-		alu_st		: in  std_logic_vector (3 downto 0); -- modo de seleção da alu
+		inputA	: in  STD_LOGIC_VECTOR (3 downto 0);
+		inputB 	: in  STD_LOGIC_VECTOR (3 downto 0); 
+		alu_st		: in  std_logic_vector (3 downto 0);			
 		output		: out STD_LOGIC_VECTOR (3 downto 0)			
 	);
 end alu;
@@ -26,24 +25,26 @@ architecture bhv of alu is
 				elsif(clk'event and clk = '1')then
 					case alu_st is
 						-- Accumulator = Register [dd]
-						when "0000" => output <= inputReg;
+						when "0000" => output <= inputB;
 						-- Register [dd] = Accumulator
-						when "0001" => output <= inputAcc;
+						when "0001" => output <= inputA;
 						-- Accumulator = Immediate
-						when "0010" => output <= imm;
+						when "0010" => output <= inputB;
 						-- Accumulator = Accumulator + Register[dd]
-						when "0011" => output <= inputAcc + inputReg;
+						when "0011" => output <= inputA + inputB;
 						-- Accumulator = Accumulator - Register[dd]
-						when "0100" => output <= inputAcc - inputReg;
+						when "0100" => output <= inputA - inputB;
 						-- Accumulator = Accumulator AND Register[dd]
-						when "0101" => output <= inputAcc and inputReg;
+						when "0101" => output <= inputA and inputB;
 						-- Accumulator = Accumulator OR Register[dd]
-						when "0110" => output <= inputAcc or inputReg;
+						when "0110" => output <= inputA or inputB;
 						-- Accumulator = NOT Accumulator
-						when "1000" => output <= not inputAcc;
+						when "1000" => output <= not inputA;
 					end case; 	
 				end if;
+			-- end begin	
 		end process;
+		
 	-- end begin 
 
 end bhv;

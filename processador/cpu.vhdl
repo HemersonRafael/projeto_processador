@@ -26,7 +26,7 @@ architecture struc of cpu is
 	component conversor_7seg
 		port(
 		  entrada 	: in  std_logic_vector (3 downto 0);  -- vetor de entrada com 4 bits
-		  segmentos : out std_logic_vector (6 downto 0)-- vetor de saida que vai receber o valor de entrada representando em 7 bits
+		  segmentos	: out std_logic_vector (6 downto 0)-- vetor de saida que vai receber o valor de entrada representando em 7 bits
 		);
 	end component;
 	
@@ -54,16 +54,18 @@ architecture struc of cpu is
 
 	begin
 	  
-	  controller: ctrl port map(rst, start, clk,immediate);
-	  datapath: dp port map(rst, clk, immediate, cpu_out);
-	  C7S: conversor_7seg port map(cpu_out,HEX0);
+		controller: ctrl port map(rst, start, clk,immediate);
+		datapath: dp port map(rst, clk, immediate, cpu_out);
+		C7S: conversor_7seg port map(cpu_out,HEX0);
 	  
-	  process(rst, clk, cpu_out)
-	  begin
-		  if(clk'event and clk='1') then
-			output <= cpu_out;
-		  end if;
-	  end process;
+		process(rst, clk, cpu_out)
+		begin
+			if(rst = '1') then
+				output <="0000";
+			elsif(clk'event and clk='1') then
+				output <= cpu_out;
+			end if;
+		end process;
 	  
 	-- end begin
 

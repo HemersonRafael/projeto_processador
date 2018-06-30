@@ -2,53 +2,52 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 -- Bloco operacional (Datapath)
 entity dp is
-  port ( rst     	: in STD_LOGIC;
-         clk     	: in STD_LOGIC;
-         imm     	: in std_logic_vector(3 downto 0);
-			sel_rf_dp: in std_logic_vector(1 downto 0);
-			alu_st_dp: out std_logic_vector(3 downto 0);
-         output_4	: out STD_LOGIC_VECTOR (3 downto 0)
-         
-       );
+	port ( 
+		rst     		: in  STD_LOGIC;
+		clk     		: in  STD_LOGIC;
+		imm     		: in  std_logic_vector(3 downto 0);
+		sel_rf_dp	: in  std_logic_vector(1 downto 0);
+		alu_st_dp	: out std_logic_vector(3 downto 0);
+		output_4		: out STD_LOGIC_VECTOR(3 downto 0)   
+   );
 end dp;
 
 architecture rtl2 of dp is
 
 component acc is
 	port ( 
-		rst   	: in STD_LOGIC;
-		clk   	: in STD_LOGIC;
-		input 	: in STD_LOGIC_VECTOR (3 downto 0);
-		enb   	: in STD_LOGIC;
+		rst   	: in  STD_LOGIC;
+		clk   	: in  STD_LOGIC;
+		input 	: in  STD_LOGIC_VECTOR (3 downto 0);
+		enb   	: in  STD_LOGIC;
 		output	: out STD_LOGIC_VECTOR (3 downto 0)
    );
 end component;
 
 component rf is
 	port (
-		rst    : in STD_LOGIC;
-		clk    : in STD_LOGIC;
-		input  : in std_logic_vector(3 downto 0); -- O que será escrito no registrador
-		sel    : in std_logic_vector(1 downto 0); -- em qual registrador será escrito 
-		enb    : in std_logic;
+		rst    : in  STD_LOGIC;
+		clk    : in  STD_LOGIC;
+		input  : in  std_logic_vector(3 downto 0); -- O que será escrito no registrador
+		sel    : in  std_logic_vector(1 downto 0); -- em qual registrador será escrito 
+		enb    : in  std_logic;
 		output : out std_logic_vector(3 downto 0)
    );	
 end component;
 
 component alu is
-	port ( 
+	port( 
 		rst   		: in  STD_LOGIC;
 		clk   		: in  STD_LOGIC;
-		inputAcc 	: in  STD_LOGIC_VECTOR (3 downto 0);
-		inputReg 	: in  STD_LOGIC_VECTOR (3 downto 0);
-		imm   		: in  std_logic_vector (3 downto 0); 
+		inputA	: in  STD_LOGIC_VECTOR (3 downto 0);
+		inputB 	: in  STD_LOGIC_VECTOR (3 downto 0); 
 		alu_st		: in  std_logic_vector (3 downto 0);			
 		output		: out STD_LOGIC_VECTOR (3 downto 0)			
 	);
 end component;
 
-signal alu_out: std_logic_vector(3 downto 0);
-signal rf_out: std_logic_vector(3 downto 0);
+signal alu_out	: std_logic_vector(3 downto 0);
+signal rf_out	: std_logic_vector(3 downto 0);
 
 begin
 	--alu1: alu port map (rst,clk,imm, alu_out);

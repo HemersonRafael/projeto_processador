@@ -23,7 +23,7 @@ end ctrl;
 
 architecture fsm of ctrl is
   
-	type state_type is (s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,done);
+	type state_type is (s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,done);
 	signal state : state_type; 		
 
 	constant mova    : std_logic_vector(3 downto 0) := "0000";
@@ -38,7 +38,7 @@ architecture fsm of ctrl is
 	constant halt	  : std_logic_vector(3 downto 0) := "1001";
 
 
-	type PM_BLOCK is array (0 to 1) of std_logic_vector(7 downto 0); -- PM Ã© a memoria de instruÃ§Ãµes pelo que eu entendi
+	type PM_BLOCK is array (0 to 1) of std_logic_vector(7 downto 0); -- PM e a memoria de instrucoes 
 	constant PM : PM_BLOCK := (	
 		-- This algorithm loads an immediate value of 3 and then stops
 		"00100100",   -- load 4
@@ -52,37 +52,34 @@ architecture fsm of ctrl is
 		-- our otherwise pure FSM
 	  
 		variable IR 		: std_logic_vector(7 downto 0);
-		variable OPCODE 	: std_logic_vector( 3 downto 0);
+		variable OPCODE 	: std_logic_vector(3 downto 0);
 		variable ADDRESS 	: std_logic_vector(3 downto 0);
+		-- Program counter (PC) e um contador para navegacao entre as instrucoes
 		variable PC 		: integer;
 		
 		begin
-			-- don't forget to take care of rst
+			
 			if(rst = '1') then
 			
 			elsif (clk'event and clk = '1') then
-				--
-				-- steady state
-				--
+				
 				case state is
-				  
-					when s0 =>    -- steady state
+				 	when s0 =>    -- steady state
 						PC := 0;
 						imm <= "0000";
 						if start = '1' then
 							state <= s1;
 						else 
 							state <= s0;
-						end if;
-					 
+						end if; 
 					when s1 =>				-- fetch instruction
-						IR := PM(PC);
-						OPCODE := IR(7 downto 4);
-						ADDRESS:= IR(3 downto 0);
-						state <= s2;
+						IR 		:= PM(PC);
+						OPCODE 	:= IR(7 downto 4);
+						ADDRESS	:= IR(3 downto 0);
+						state 	<= s2;
 					 
 					when s2 =>				-- increment PC
-						PC := PC + 1;
+						PC 	:= PC + 1;
 						state <= s3; 
 						
 					when s3 =>				-- decode instruction
@@ -96,10 +93,8 @@ architecture fsm of ctrl is
 							when orr  	=> state <= s10;
 							when jmp  	=> state <= s11;
 							when inv  	=> state <= s12;
-							--when halt 	=> state <= s13;
 							when halt 	=> state <= done;
-							when others =>
-							  state <= s1;
+							when others => state <= s1;
 						end case;
 						
 						-- these states are the ones in which you actually
@@ -110,9 +105,8 @@ architecture fsm of ctrl is
 					when s4 => -- Accumulator = Register[dd]
 						en_acc <= '0';
 						en_rf  <= '1'; --Ativa que a saÃ­da do rf para ir para o acc 
-						state <= s1;
-					when s5 => -- Register [dd] = Accumulator
-					 
+						state  <= s1;
+					when s5 => -- Register [dd] = Accumulator 
 						sel_rf_ctrl <= ADDRESS(3 downto 2);
 						en_acc <= '1'; -- Ativa que a saida do acc vÃ¡ para o rf
 						en_rf <= '0';
@@ -143,20 +137,17 @@ architecture fsm of ctrl is
 						alu_st_ctrl <= "0110";
 						state <= s1;
 					when s11 => --PC = Address[aaaa]
-						 ADDRESS:= IR(3 downto 0);
-						 PC := conv_integer(unsigned(ADDRESS));
-						 PC := 1; -- exemplo
-						 state <= s1;
+						 ADDRESS := IR(7 downto 4);
+						 PC 		:= conv_integer(unsigned(ADDRESS));
+						 state 	<= s1;
 					when s12 => --Accumulator = NOT Accumulator 
 						en_acc <= '1';
 						en_rf <= '1';
 						alu_st_ctrl <= "1000";
-						state <= s1;
-					--when s13 =>  --Stop execution
-					--	state <= s1;     
+						state <= s1;    
 					when done =>                            -- stay here forever
 						state <= done;					
-					when others =>
+					when others => state <= s0;
 				  
 				end case;
 				
