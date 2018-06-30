@@ -144,7 +144,7 @@ architecture fsm of ctrl is
 						state <= s1;
 					when s11 => --PC = Address[aaaa]
 						 ADDRESS:= IR(3 downto 0);
-						 --PC := unsigned(ADDRESS);
+						 PC := conv_integer(unsigned(ADDRESS));
 						 PC := 1; -- exemplo
 						 state <= s1;
 					when s12 => --Accumulator = NOT Accumulator 
