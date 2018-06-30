@@ -11,15 +11,15 @@ entity ctrl is
 		clk   : in STD_LOGIC;       
 		imm   : out std_logic_vector(3 downto 0);	
 		-- SINAIS PARA CONTROLAR O DATAPATHH
-		alu_st_ctrl: out std_logic_vector(3 downto 0); -- especifica qual operação deve ser feita com a ALU
-		sel_rf_ctrl: out std_logic_vector(1 downto 0);  -- especifica qual registrador será usado no rf 
+		alu_st_ctrl: out std_logic_vector(3 downto 0); -- especifica qual operaÃ§Ã£o deve ser feita com a ALU
+		sel_rf_ctrl: out std_logic_vector(1 downto 0);  -- especifica qual registrador serÃ¡ usado no rf 
 		en_rf		  : out std_logic;						  -- Enable do rf
 		en_acc	  : out std_logic 						  -- Enable do acc			
    );
 end ctrl;
 
 --Para carregas:
--- en_acc = 1, en_rf = 0, tem de passar um valor para acc, que é o imm
+-- en_acc = 1, en_rf = 0, tem de passar um valor para acc, que Ã© o imm
 
 architecture fsm of ctrl is
   
@@ -38,7 +38,7 @@ architecture fsm of ctrl is
 	constant halt	  : std_logic_vector(3 downto 0) := "1001";
 
 
-	type PM_BLOCK is array (0 to 1) of std_logic_vector(7 downto 0); -- PM é a memoria de instruções pelo que eu entendi
+	type PM_BLOCK is array (0 to 1) of std_logic_vector(7 downto 0); -- PM Ã© a memoria de instruÃ§Ãµes pelo que eu entendi
 	constant PM : PM_BLOCK := (	
 		-- This algorithm loads an immediate value of 3 and then stops
 		"00100100",   -- load 4
@@ -96,7 +96,8 @@ architecture fsm of ctrl is
 							when orr  	=> state <= s10;
 							when jmp  	=> state <= s11;
 							when inv  	=> state <= s12;
-							when halt 	=> state <= s13;
+							--when halt 	=> state <= s13;
+							when halt 	=> state <= done;
 							when others =>
 							  state <= s1;
 						end case;
@@ -108,12 +109,12 @@ architecture fsm of ctrl is
 						
 					when s4 => -- Accumulator = Register[dd]
 						en_acc <= '0';
-						en_rf  <= '1'; --Ativa que a saída do rf para ir para o acc 
+						en_rf  <= '1'; --Ativa que a saÃ­da do rf para ir para o acc 
 						state <= s1;
 					when s5 => -- Register [dd] = Accumulator
 					 
 						sel_rf_ctrl <= ADDRESS(3 downto 2);
-						en_acc <= '1'; -- Ativa que a saida do acc vá para o rf
+						en_acc <= '1'; -- Ativa que a saida do acc vÃ¡ para o rf
 						en_rf <= '0';
 						state <= s1;
 					when s6 => --Accumulator = Immediate    
@@ -141,17 +142,18 @@ architecture fsm of ctrl is
 						en_rf <= '1';
 						alu_st_ctrl <= "0110";
 						state <= s1;
-					when s11 => --PC = Address[aaaa] 
-						 -- Não entendi!
-						 --PC := ADDRESS;
+					when s11 => --PC = Address[aaaa]
+						 ADDRESS:= IR(3 downto 0);
+						 --PC := unsigned(ADDRESS);
+						 PC := 1; -- exemplo
 						 state <= s1;
 					when s12 => --Accumulator = NOT Accumulator 
 						en_acc <= '1';
 						en_rf <= '1';
 						alu_st_ctrl <= "1000";
 						state <= s1;
-					when s13 =>  --Stop execution
-						state <= s1;     
+					--when s13 =>  --Stop execution
+					--	state <= s1;     
 					when done =>                            -- stay here forever
 						state <= done;					
 					when others =>

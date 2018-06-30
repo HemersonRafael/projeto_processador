@@ -15,7 +15,9 @@ entity cpu is
 		HEX0    : out STD_LOGIC_VECTOR(6 downto 0);
 		HEX1 	  : out STD_LOGIC_VECTOR(6 downto 0);
 		HEX2 	  : out STD_LOGIC_VECTOR(6 downto 0);
-		HEX3 	  : out STD_LOGIC_VECTOR(6 downto 0)
+		HEX3 	  : out STD_LOGIC_VECTOR(6 downto 0);
+		HEX4 	  : out STD_LOGIC_VECTOR(6 downto 0);
+		HEX5 	  : out STD_LOGIC_VECTOR(6 downto 0)
    );
 end cpu;
 
