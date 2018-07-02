@@ -44,7 +44,7 @@ ld files
 *.vhdl.bak
 *.vhd.bak
 *.qdf
-*.vwf
+# *.vwf
 
 # iMPACT generated files
 _impactbatch.log
