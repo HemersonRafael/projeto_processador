@@ -29,7 +29,7 @@ architecture bhv of rf is
 			elsif(clk'event and clk = '1')then
 		  -- Quando enable for '0', estaremos tratando os acontecimentos nos signals
 		  -- para que quando enable for '1', passemos a saída.
-				 if (enb = '0') then
+				if (enb = '0') then
 					case (sel) is 
 					  when "00" => 
 						 out0 <= input;
@@ -42,7 +42,7 @@ architecture bhv of rf is
 					  when others =>
 						 output <= "0000";
 					end case;
-				 else
+				else
 					case (sel) is
 					  when "00" =>
 						 output <= out0;
@@ -54,8 +54,8 @@ architecture bhv of rf is
 						 output <= out3;
 					  --when others =>
 					end case;
-				 end if;
-		  end if;
+				end if;
+		   end if;
 		end process;	
 	-- end begin
 end bhv;

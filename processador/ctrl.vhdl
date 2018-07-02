@@ -59,7 +59,7 @@ architecture fsm of ctrl is
 		begin
 			
 			if(rst = '1') then
-			
+				state <= s0;
 			elsif (clk'event and clk = '1') then
 				
 				case state is
@@ -105,7 +105,7 @@ architecture fsm of ctrl is
 					when s6 => --Accumulator = Immediate    
 						imm <= address;
 						en_acc <= '0';
-						en_rf <= '0';
+						en_rf  <= '0';
 						state <= s1;
 					when s7 => --Accumulator = Accumulator + Register[dd]
 						en_acc <= '1';

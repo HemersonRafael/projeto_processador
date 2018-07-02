@@ -68,7 +68,6 @@ architecture struc of cpu is
 		end process;
 	  
 	-- end begin
-
 end struc;
 
 

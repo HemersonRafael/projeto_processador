@@ -2,6 +2,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 --use IEEE.std_logic_arith.all;
 use ieee.STD_LOGIC_UNSIGNED.all;
+
 -- unidade logica aritmetrica (ULA)
 -- Arithmetic Logic Unit (ALU)
 
