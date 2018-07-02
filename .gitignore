@@ -43,6 +43,7 @@ ld files
 *_xst.xrpt
 *.vhdl.bak
 *.vhd.bak
+*.qdf
 
 # iMPACT generated files
 _impactbatch.log
