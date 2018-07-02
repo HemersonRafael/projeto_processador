@@ -11,8 +11,8 @@ entity ctrl is
 		clk   : in STD_LOGIC;       
 		imm   : out std_logic_vector(3 downto 0);	
 		-- SINAIS PARA CONTROLAR O DATAPATHH
-		alu_st_ctrl: out std_logic_vector(3 downto 0); -- especifica qual operaÃ§Ã£o deve ser feita com a ALU
-		sel_rf_ctrl: out std_logic_vector(1 downto 0);  -- especifica qual registrador serÃ¡ usado no rf 
+		alu_st_ctrl: out std_logic_vector(3 downto 0); -- especifica qual operacao deve ser feita com a ALU
+		sel_rf_ctrl: out std_logic_vector(1 downto 0);  -- especifica qual registrador serao usado no rf 
 		en_rf		  : out std_logic;						  -- Enable do rf
 		en_acc	  : out std_logic 						  -- Enable do acc			
    );
@@ -47,12 +47,11 @@ architecture fsm of ctrl is
 	
 	begin
 		process (clk,rst)
-		-- these variables declared here don't change.
-		-- these are the only data allowed inside
-		-- our otherwise pure FSM
-	  
+		-- Registrador de instrucao atual
 		variable IR 		: std_logic_vector(7 downto 0);
+		-- Codigo de operacao
 		variable OPCODE 	: std_logic_vector(3 downto 0);
+		-- Endereco da instrucao
 		variable ADDRESS 	: std_logic_vector(3 downto 0);
 		-- Program counter (PC) e um contador para navegacao entre as instrucoes
 		variable PC 		: integer;
@@ -64,7 +63,7 @@ architecture fsm of ctrl is
 			elsif (clk'event and clk = '1') then
 				
 				case state is
-				 	when s0 =>    -- steady state
+				 	when s0 =>    -- estado de espera
 						PC := 0;
 						imm <= "0000";
 						if start = '1' then
@@ -72,22 +71,20 @@ architecture fsm of ctrl is
 						else 
 							state <= s0;
 						end if; 
-					when s1 =>				-- fetch instruction
+					when s1 =>				-- busca de instrucoes
 						IR 		:= PM(PC);
 						OPCODE 	:= IR(7 downto 4);
 						ADDRESS	:= IR(3 downto 0);
-						state 	<= s2;
-					 
-					when s2 =>				-- increment PC
+						state 	<= s2;					 
+					when s2 =>				-- incrementando PC
 						PC 	:= PC + 1;
-						state <= s3; 
-						
-					when s3 =>				-- decode instruction
+						state <= s3; 						
+					when s3 =>				-- decodificao de instrucoes
 						case OPCODE IS
 							when mova 	=> state <= s4;
 							when movr	=> state <= s5;         
-							when load 	=> state <= s6;           -- notice we can use                                          
-							when add  	=> state <= s7;				-- the instruction          
+							when load 	=> state <= s6;                                               
+							when add  	=> state <= s7;			         
 							when sub  	=> state <= s8;
 							when andr 	=> state <= s9;
 							when orr  	=> state <= s10;
@@ -96,12 +93,6 @@ architecture fsm of ctrl is
 							when halt 	=> state <= done;
 							when others => state <= s1;
 						end case;
-						
-						-- these states are the ones in which you actually
-						-- start sending signals across
-						-- to the datapath depending on what opcode is decoded.
-						-- you add more states here.
-						
 					when s4 => -- Accumulator = Register[dd]
 						en_acc <= '0';
 						en_rf  <= '1'; --Ativa que a saÃ­da do rf para ir para o acc 
@@ -136,19 +127,19 @@ architecture fsm of ctrl is
 						en_rf <= '1';
 						alu_st_ctrl <= "0110";
 						state <= s1;
-					when s11 => --PC = Address[aaaa]
-						 ADDRESS := IR(7 downto 4);
-						 PC 		:= conv_integer(unsigned(ADDRESS));
-						 state 	<= s1;
+					when s11 => --PC = Address
+						ADDRESS := IR(7 downto 4);
+						PC 		:= conv_integer(unsigned(ADDRESS));
+						state 	<= s1;
 					when s12 => --Accumulator = NOT Accumulator 
 						en_acc <= '1';
-						en_rf <= '1';
+						en_rf	 <= '1';
 						alu_st_ctrl <= "1000";
 						state <= s1;    
 					when done =>                            -- stay here forever
 						state <= done;					
-					when others => state <= s0;
-				  
+					when others => 
+						state <= s0;				  
 				end case;
 				
 			end if;

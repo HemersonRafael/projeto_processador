@@ -1,7 +1,7 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
--- Registrador acumulador
--- Register Accumulator
+
+-- Memoria de dados
 
 entity acc is
 	port ( 

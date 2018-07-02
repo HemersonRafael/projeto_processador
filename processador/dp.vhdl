@@ -8,7 +8,7 @@ entity dp is
 		imm     		: in  std_logic_vector(3 downto 0);
 		sel_rf_dp	: in  std_logic_vector(1 downto 0);
 		alu_st_dp	: out std_logic_vector(3 downto 0);
-		output_4		: out STD_LOGIC_VECTOR(3 downto 0)   
+		output_dp	: out STD_LOGIC_VECTOR(3 downto 0)   
    );
 end dp;
 
@@ -39,19 +39,20 @@ component alu is
 	port( 
 		rst   		: in  STD_LOGIC;
 		clk   		: in  STD_LOGIC;
-		inputA	: in  STD_LOGIC_VECTOR (3 downto 0);
-		inputB 	: in  STD_LOGIC_VECTOR (3 downto 0); 
+		inputA		: in  STD_LOGIC_VECTOR (3 downto 0);
+		inputB 		: in  STD_LOGIC_VECTOR (3 downto 0); 
 		alu_st		: in  std_logic_vector (3 downto 0);			
 		output		: out STD_LOGIC_VECTOR (3 downto 0)			
 	);
 end component;
-
+signal 
 signal alu_out	: std_logic_vector(3 downto 0);
 signal rf_out	: std_logic_vector(3 downto 0);
 
 begin
 	--alu1: alu port map (rst,clk,imm, alu_out);
-	--rf1:	rf port map(rst, clk, alu_out,  )
+	--rf1:	rf port map(rst, clk, alu_out);
+	--acc1: acc port map ();
 	-- maybe this is were we add the port maps for the other components.....
 
 	process (rst, clk, alu_out)
@@ -62,8 +63,9 @@ begin
 			-- involved we want to be able to see the
 			-- results/data changes on the acc.
 			-- take care of reset state
+			
 		  
-			output_4 <= alu_out;
+			output_dp <= alu_out;
 		
    end process;
 end rtl2;
