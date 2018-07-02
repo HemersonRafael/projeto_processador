@@ -7,7 +7,7 @@ use IEEE.std_logic_arith.all;
 -- cpu (top level entity)
 
 entity cpu is
-   port ( 
+   port( 
 		rst     : in  STD_LOGIC;
 		start   : in  STD_LOGIC;
 		clk     : in  STD_LOGIC;
@@ -25,17 +25,21 @@ architecture struc of cpu is
 
 	component conversor_7seg
 		port(
-		  entrada 	: in  std_logic_vector (3 downto 0);  -- vetor de entrada com 4 bits
-		  segmentos	: out std_logic_vector (6 downto 0)-- vetor de saida que vai receber o valor de entrada representando em 7 bits
+		  entrada 	: in  std_logic_vector (3 downto 0);
+		  segmentos	: out std_logic_vector (6 downto 0)
 		);
 	end component;
 	
 	component ctrl 
-		port ( 
-			rst   : in STD_LOGIC;
-			start : in STD_LOGIC;
-			clk   : in STD_LOGIC;
-			imm   : out std_logic_vector(3 downto 0)
+		port( 
+			rst_ctrl   		: in STD_LOGIC;
+			start_ctrl 		: in STD_LOGIC;
+			clk_ctrl   		: in STD_LOGIC;       
+			output_ctrl 	: out std_logic_vector(3 downto 0);	
+			alu_st_ctrl		: out std_logic_vector(3 downto 0);
+			rf_sel_ctrl		: out std_logic_vector(1 downto 0);  
+			rf_enb_ctrl		: out std_logic;						  
+			acc_enb_ctrl	: out std_logic
 		);
 	end component;
 
@@ -44,18 +48,25 @@ architecture struc of cpu is
 			rst     : in STD_LOGIC;
 			clk     : in STD_LOGIC;
 			imm     : in std_logic_vector(3 downto 0);
-			output_4: out STD_LOGIC_VECTOR (3 downto 0)    
+			output_dp: out STD_LOGIC_VECTOR (3 downto 0)    
 		);
 	end component;
 
 
-	signal immediate : std_logic_vector(3 downto 0);
-	signal cpu_out : std_logic_vector(3 downto 0);
-
+	signal immediate 				:  std_logic_vector(3 downto 0);
+	signal cpu_out 				:  std_logic_vector(3 downto 0);
+	signal output_ctrl_out 		:  std_logic_vector(3 downto 0);	
+	signal alu_st_ctrl_out 		:  std_logic_vector(3 downto 0); 
+	signal rf_sel_ctrl_out 		:  std_logic_vector(1 downto 0);   
+	signal rf_enb_ctrl_out 		:  std_logic;						  
+	signal acc_enb_ctrl_out 	:  std_logic;
+	
 	begin
-	  
-		controller: ctrl port map(rst, start, clk,immediate);
-		datapath: dp port map(rst, clk, immediate, cpu_out);
+	   
+		--datapath: dp port map();
+		controller: ctrl port map(rst,start, clk, immediate, cpu_out, alu_st_ctrl_out, rf_sel_ctrl_out, rf_enb_ctrl_out, acc_enb_ctrl_out);
+		
+
 		C7S: conversor_7seg port map(cpu_out,HEX0);
 	  
 		process(rst, clk, cpu_out)

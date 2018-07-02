@@ -7,11 +7,11 @@ use ieee.STD_LOGIC_UNSIGNED.all;
 -- Arithmetic Logic Unit (ALU)
 
 entity alu is
-	port ( 
+	port( 
 		rst   		: in  STD_LOGIC;
 		clk   		: in  STD_LOGIC;
-		inputA	: in  STD_LOGIC_VECTOR (3 downto 0);
-		inputB 	: in  STD_LOGIC_VECTOR (3 downto 0); 
+		inputA		: in  STD_LOGIC_VECTOR (3 downto 0);
+		inputB 		: in  STD_LOGIC_VECTOR (3 downto 0); 
 		alu_st		: in  std_logic_vector (3 downto 0);			
 		output		: out STD_LOGIC_VECTOR (3 downto 0)			
 	);

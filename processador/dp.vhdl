@@ -2,20 +2,31 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 -- Bloco operacional (Datapath)
 entity dp is
-	port ( 
-		rst     		: in  STD_LOGIC;
-		clk     		: in  STD_LOGIC;
-		imm     		: in  std_logic_vector(3 downto 0);
-		sel_rf_dp	: in  std_logic_vector(1 downto 0);
+	port( 
+		rst_dp     		: in  STD_LOGIC;
+		clk_dp     		: in  STD_LOGIC;
+		input_dp		: in  std_logic_vector(3 downto 0);
 		alu_st_dp	: out std_logic_vector(3 downto 0);
+		rf_sel_dp	: out std_logic_vector(1 downto 0);  
+		rf_enb_dp	: out std_logic;						  
+		acc_enb_dp	: out std_logic
 		output_dp	: out STD_LOGIC_VECTOR(3 downto 0)   
    );
 end dp;
 
 architecture rtl2 of dp is
-
+component alu is
+	port( 
+		rst   		: in  STD_LOGIC;
+		clk   		: in  STD_LOGIC;
+		inputA		: in  STD_LOGIC_VECTOR (3 downto 0);
+		inputB 		: in  STD_LOGIC_VECTOR (3 downto 0); 
+		alu_st		: in  std_logic_vector (3 downto 0);			
+		output		: out STD_LOGIC_VECTOR (3 downto 0)			
+	);
+end component;
 component acc is
-	port ( 
+	port( 
 		rst   	: in  STD_LOGIC;
 		clk   	: in  STD_LOGIC;
 		input 	: in  STD_LOGIC_VECTOR (3 downto 0);
@@ -35,37 +46,23 @@ component rf is
    );	
 end component;
 
-component alu is
-	port( 
-		rst   		: in  STD_LOGIC;
-		clk   		: in  STD_LOGIC;
-		inputA		: in  STD_LOGIC_VECTOR (3 downto 0);
-		inputB 		: in  STD_LOGIC_VECTOR (3 downto 0); 
-		alu_st		: in  std_logic_vector (3 downto 0);			
-		output		: out STD_LOGIC_VECTOR (3 downto 0)			
-	);
-end component;
-signal 
+signal alu_inA	: std_logic_vector(3 downto 0);
+signal alu_inB	: std_logic_vector(3 downto 0);
+signal rf_in	: std_logic_vector(3 downto 0);
+signal acc_in	: std_logic_vector(3 downto 0);
 signal alu_out	: std_logic_vector(3 downto 0);
 signal rf_out	: std_logic_vector(3 downto 0);
+signal acc_out	: std_logic_vector(3 downto 0);
 
 begin
-	--alu1: alu port map (rst,clk,imm, alu_out);
-	--rf1:	rf port map(rst, clk, alu_out);
-	--acc1: acc port map ();
-	-- maybe this is were we add the port maps for the other components.....
 
-	process (rst, clk, alu_out)
+	ALU1: alu port map(rst_dp, clk_dp, alu_inA , alu_inB, alu_st_dp, alu_out);
+	RF1 :	rf  port map(rst_dp, clk_dp, rf_in, rf_sel_dp, rf_enb_dp, rf_out);
+	ACC1: acc port map(rst_dp, clk_dp, acc_in, acc_enb_dp, acc_out);
+	
+	process (rst_dp, clk_dp, alu_out)
 		begin
-			-- this you should change so the output actually
-			-- comes from the accumulator so it follows the
-			-- instruction set. since the accumulator is always 
-			-- involved we want to be able to see the
-			-- results/data changes on the acc.
-			-- take care of reset state
-			
-		  
+			when 
 			output_dp <= alu_out;
-		
    end process;
 end rtl2;
