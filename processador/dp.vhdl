@@ -53,7 +53,7 @@ begin
 	--alu1: alu port map (rst,clk,imm, alu_out);
 	--rf1:	rf port map(rst, clk, alu_out);
 	--acc1: acc port map ();
-
+	-- maybe this is were we add the port maps for the other components.....
 
 	process (rst, clk, alu_out)
 		begin
