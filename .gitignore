@@ -44,6 +44,7 @@ ld files
 *.vhdl.bak
 *.vhd.bak
 *.qdf
+*.vwf
 
 # iMPACT generated files
 _impactbatch.log
@@ -73,3 +74,4 @@ _xmsgs/
 processador/db/
 processador/incremental_db/
 processador/output_files
+processador/simulation/

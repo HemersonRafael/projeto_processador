@@ -41,6 +41,7 @@ architecture bhv of alu is
 						when "0110" => output <= inputA or inputB;
 						-- Accumulator = NOT Accumulator
 						when "1000" => output <= not inputA;
+						when others =>
 					end case; 	
 				end if;
 			-- end begin	
