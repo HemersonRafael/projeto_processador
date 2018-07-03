@@ -56,14 +56,14 @@ architecture rtl2 of dp is
 	signal rf_out	: std_logic_vector(3 downto 0) := "0000";
 	signal acc_out	: std_logic_vector(3 downto 0) := "0000";
 
-	constant mova    : std_logic_vector(3 downto 0) := "0000";
-	constant movr    : std_logic_vector(3 downto 0) := "0001";
-	constant load    : std_logic_vector(3 downto 0) := "0010";
-	constant add	  : std_logic_vector(3 downto 0) := "0011";
-	constant sub	  : std_logic_vector(3 downto 0) := "0100";
-	constant andr    : std_logic_vector(3 downto 0) := "0101";
-	constant orr     : std_logic_vector(3 downto 0) := "0110";
-	constant inv     : std_logic_vector(3 downto 0) := "1000";
+	constant mova  : std_logic_vector(3 downto 0) := "0000";
+	constant movr  : std_logic_vector(3 downto 0) := "0001";
+	constant load  : std_logic_vector(3 downto 0) := "0010";
+	constant add	: std_logic_vector(3 downto 0) := "0011";
+	constant sub	: std_logic_vector(3 downto 0) := "0100";
+	constant andr  : std_logic_vector(3 downto 0) := "0101";
+	constant orr   : std_logic_vector(3 downto 0) := "0110";
+	constant inv   : std_logic_vector(3 downto 0) := "1000";
 	
 
 	begin
@@ -72,7 +72,7 @@ architecture rtl2 of dp is
 		RF1 :	rf  port map(rst_dp, clk_dp, rf_in, rf_sel_dp, rf_enb_dp, rf_out);
 		ACC1: acc port map(rst_dp, clk_dp, acc_in, acc_enb_dp, acc_out);
 		
-		process (rst_dp, clk_dp, alu_out)
+		process (rst_dp, clk_dp, alu_inA , alu_inB, alu_st_dp, alu_out, rf_in, rf_sel_dp, rf_enb_dp, rf_out, acc_in, acc_enb_dp, acc_out)
 			begin
 				case alu_st_dp is	
 					when mova =>

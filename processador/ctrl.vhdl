@@ -36,10 +36,11 @@ architecture fsm of ctrl is
 	constant halt	  : std_logic_vector(3 downto 0) := "1001";
 	
 
-	type PM_BLOCK is array (0 to 1) of std_logic_vector(7 downto 0); -- PM e a memoria de instrucoes 
+	type PM_BLOCK is array (0 to 2) of std_logic_vector(7 downto 0); -- PM e a memoria de instrucoes 
 	constant PM : PM_BLOCK := (	
 		-- This algorithm loads an immediate value of 3 and then stops
 		"00100100",   -- load 4
+		"00100101",   -- load 5
 		"10011111"		-- halt
    );
 	
