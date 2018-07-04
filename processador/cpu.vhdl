@@ -30,6 +30,16 @@ architecture struc of cpu is
 		);
 	end component;
 	
+	component conversor_comandos is
+		port(
+		  instrucao 	: in  std_logic_vector (3 downto 0);
+		  hex3 : out std_logic_vector (6 downto 0);
+		  hex2 : out std_logic_vector (6 downto 0);
+		  hex1 : out std_logic_vector (6 downto 0);
+		  hex0 : out std_logic_vector (6 downto 0)
+		);
+	end component;
+	
 	component ctrl 
 		port( 
 			rst_ctrl   		: in STD_LOGIC;
@@ -75,6 +85,8 @@ architecture struc of cpu is
 
 		C7S1: conversor_7seg port map(dezena_CPU,HEX5);
 	   C7S2: conversor_7seg port map(unidade_CPU,HEX4);
+		C7COM: conversor_comandos port map(alu_st_ctrl_out, HEX3, HEX2, HEX1, HEX0);
+		
 		process(rst, clk, cpu_out)
 		variable quociente_CPU, resto_CPU : integer range 0 to 9;
 		begin
