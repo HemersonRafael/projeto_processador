@@ -21,7 +21,7 @@ architecture bhv of acc is
 			if (rst = '1') then
 				output <= "0000";
 				temp 	 <= "0000";
-			elsif (clk'event and clk = '1') then
+			elsif (clk'event and clk = '0') then
 					if (enb = '1') then 
 						output <= input;
 						temp <= input;

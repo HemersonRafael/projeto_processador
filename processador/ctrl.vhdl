@@ -22,7 +22,7 @@ end ctrl;
 
 architecture fsm of ctrl is
   
-	type state_type is (s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,done);
+	type state_type is (s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,done);
 	signal state : state_type;
 	constant mova    : std_logic_vector(3 downto 0) := "0000";
 	constant movr    : std_logic_vector(3 downto 0) := "0001";
@@ -36,11 +36,28 @@ architecture fsm of ctrl is
 	constant halt	  : std_logic_vector(3 downto 0) := "1001";
 	
 
-	type PM_BLOCK is array (0 to 2) of std_logic_vector(7 downto 0); -- PM e a memoria de instrucoes 
+	type PM_BLOCK is array (0 to 6) of std_logic_vector(7 downto 0); -- PM e a memoria de instrucoes 
 	constant PM : PM_BLOCK := (	
 		-- This algorithm loads an immediate value of 3 and then stops
-		"00100100",   -- load 4
-		"00100101",   -- load 5
+		"00101001", -- load 9
+		
+		"00010000", --movr 15 para r00
+		--"00101111", --load 15
+		"00100001", -- load 1
+		--"00100000", -- load 0
+		"00011100", --movr 0 para r01
+		--"00000100", --
+--		"00100100",    -- load 4
+--		"00010000",		-- movr 00
+--		"00100101",    -- load 5
+--		"00010100",		-- movr 01
+		--"00110000",		-- add
+		"00000000", -- mova
+		--"01010000",	-- and
+--		"01100000",	-- or
+		--"01110000"
+		"01001100", --sub
+		--"10000100"
 		"10011111"		-- halt
    );
 	
@@ -54,13 +71,13 @@ architecture fsm of ctrl is
 		-- Endereco da instrucao
 		variable ADDRESS 	: std_logic_vector(3 downto 0);
 		-- Program counter (PC) e um contador para navegacao entre as instrucoes
-		variable PC 		: integer;
+		variable PC 		: integer range 0 to 10 :=0;
 		
 		begin
 			
 			if(rst_ctrl = '1') then
 				state <= s0;
-			elsif (clk_ctrl'event and clk_ctrl = '1') then
+			elsif (clk_ctrl'event and clk_ctrl = '0') then
 				
 				case state is
 				 	when s0 =>    -- estado de espera
@@ -75,7 +92,7 @@ architecture fsm of ctrl is
 						IR 		:= PM(PC);
 						OPCODE 	:= IR(7 downto 4);
 						ADDRESS	:= IR(3 downto 0);
-						state 	<= s2;					 
+						state <= s2;
 					when s2 =>				-- incrementar o PC
 						PC 	:= PC + 1;
 						state <= s3; 						
@@ -90,70 +107,71 @@ architecture fsm of ctrl is
 							when orr  	=> state <= s10;
 							when jmp  	=> state <= s11;
 							when inv  	=> state <= s12;
-							when halt 	=> state <= done;
-							when others => state <= s1;
+							when halt 	=> state <= s13;
+							when others => state <= done;
 						end case;
 					when s4 => -- Accumulator = Register[dd]
 						acc_enb_ctrl <= '1';
-						rf_enb_ctrl  <= '1'; --Ativa que a sai­da do rf para ir para o acc 
+						rf_enb_ctrl  <= '0'; --Ativa que a sai­da do rf para ir para o acc 
 						alu_st_ctrl  <= mova;
 						rf_sel_ctrl  <= ADDRESS(3 downto 2);
 						state  <= s1;
 					when s5 => -- Register [dd] = Accumulator 
 						acc_enb_ctrl <= '0'; -- Ativa que a saida do acc vai para o rf
-						rf_enb_ctrl  <= '0';
+						rf_enb_ctrl  <= '1';
 						alu_st_ctrl  <= movr;
 						rf_sel_ctrl  <= ADDRESS(3 downto 2);
 						state <= s1;
 					when s6 => --Accumulator = Immediate    
 						output_ctrl  <= ADDRESS;
-						acc_enb_ctrl <= '0';
-						rf_enb_ctrl  <= '1';
+						acc_enb_ctrl <= '1';
+						rf_enb_ctrl  <= '0';
 						alu_st_ctrl  <= load;
 						rf_sel_ctrl  <= ADDRESS(3 downto 2);
 						state <= s1;
 					when s7 => --Accumulator = Accumulator + Register[dd]
 						acc_enb_ctrl <= '1';
-						rf_enb_ctrl  <= '1';					 
+						rf_enb_ctrl  <= '0';					 
 						alu_st_ctrl  <= add;
 						rf_sel_ctrl  <= ADDRESS(3 downto 2);
 						state <= s1;	
 					when s8 => --Accumulator = Accumulator - Register[dd]
 						acc_enb_ctrl <= '1';
-						rf_enb_ctrl  <= '1';					 
+						rf_enb_ctrl  <= '0';					 
 						alu_st_ctrl  <= sub;	
 						rf_sel_ctrl  <= ADDRESS(3 downto 2);
 						state <= s1;
 				   when s9 => --Accumulator = Accumulator AND Register[dd]
 				  		acc_enb_ctrl <= '1';
-						rf_enb_ctrl  <= '1';
+						rf_enb_ctrl  <= '0';
 						alu_st_ctrl  <= andr;
 						rf_sel_ctrl  <= ADDRESS(3 downto 2);
 						state <= s1;
 					when s10 => --Accumulator = Accumulator OR Register[dd] 
 						acc_enb_ctrl <= '1';
-						rf_enb_ctrl  <= '1';
+						rf_enb_ctrl  <= '0';
 						alu_st_ctrl  <= orr;
 						rf_sel_ctrl  <= ADDRESS(3 downto 2);
 						state <= s1;
 					when s11 => --PC = Address
 						acc_enb_ctrl <= '0';
-						rf_enb_ctrl  <= '1';
-						ADDRESS 		 := IR(7 downto 4);
+						rf_enb_ctrl  <= '0';
 						PC 	  		 := conv_integer(unsigned(ADDRESS));
 						alu_st_ctrl  <= "1111";
 						rf_sel_ctrl  <= ADDRESS(3 downto 2);
 						state   <= s1;
 					when s12 => --Accumulator = NOT Accumulator 
-						acc_enb_ctrl <= '1';
-						rf_enb_ctrl	 <= '1';
+						acc_enb_ctrl <= '0';
+						rf_enb_ctrl	 <= '0';
 						alu_st_ctrl  <= inv;
 						rf_sel_ctrl  <= ADDRESS(3 downto 2);
-						state <= s1;    
+						state <= s1;
+					when s13 =>
+						acc_enb_ctrl <= '0';
+						rf_enb_ctrl	 <= '0';
+						state <=done;
 					when done =>                            -- stay here forever
-						state <= done;					
-					when others => 
-						state <= s0;				  
+						state <= done;									  
 				end case;
 				
 			end if;

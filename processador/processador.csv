@@ -1,0 +1,70 @@
+# Copyright (C) 1991-2013 Altera Corporation
+# Your use of Altera Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Altera Program License 
+# Subscription Agreement, Altera MegaCore Function License 
+# Agreement, or other applicable license agreement, including, 
+# without limitation, that your use is for the sole purpose of 
+# programming logic devices manufactured by Altera and sold by 
+# Altera or its authorized distributors.  Please refer to the 
+# applicable agreement for further details.
+
+# Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+# File: C:\Users\Hemerson\Documents\ProjetoProcessador\processador\processador.csv
+# Generated on: Tue Jul 03 14:10:22 2018
+
+# Note: The column header names should not be changed if you wish to import this .csv file into the Quartus II software.
+
+To,Direction,Location,I/O Bank,VREF Group,I/O Standard,Reserved,Current Strength,Differential Pair
+start,Input,PIN_V1,1,B1_N0,,,,
+rst,Input,PIN_V2,1,B1_N0,,,,
+output[0],Output,,,,,,,
+output[1],Output,,,,,,,
+output[2],Output,,,,,,,
+output[3],Output,,,,,,,
+clk,Input,PIN_W26,6,B6_N1,,,,
+HEX1[5],Output,PIN_AA23,6,B6_N1,,,,
+HEX1[4],Output,PIN_AA24,6,B6_N1,,,,
+HEX3[1],Output,PIN_AA25,6,B6_N1,,,,
+HEX3[2],Output,PIN_AA26,6,B6_N1,,,,
+HEX0[1],Output,PIN_AB12,8,B8_N0,,,,
+HEX2[0],Output,PIN_AB23,6,B6_N1,,,,
+HEX1[6],Output,PIN_AB24,6,B6_N1,,,,
+HEX2[5],Output,PIN_AB25,6,B6_N1,,,,
+HEX2[4],Output,PIN_AB26,6,B6_N1,,,,
+HEX0[2],Output,PIN_AC12,8,B8_N0,,,,
+HEX2[2],Output,PIN_AC25,6,B6_N1,,,,
+HEX2[3],Output,PIN_AC26,6,B6_N1,,,,
+HEX0[3],Output,PIN_AD11,8,B8_N0,,,,
+HEX0[4],Output,PIN_AE11,8,B8_N0,,,,
+HEX0[0],Output,PIN_AF10,8,B8_N0,,,,
+HEX5[1],Output,PIN_P6,1,B1_N0,,,,
+HEX5[2],Output,PIN_P7,1,B1_N0,,,,
+HEX5[6],Output,PIN_R3,1,B1_N0,,,,
+HEX5[5],Output,PIN_R4,1,B1_N0,,,,
+HEX5[4],Output,PIN_R5,1,B1_N0,,,,
+HEX4[5],Output,PIN_R6,1,B1_N0,,,,
+HEX4[4],Output,PIN_R7,1,B1_N0,,,,
+HEX5[0],Output,PIN_T2,1,B1_N0,,,,
+HEX4[6],Output,PIN_T3,1,B1_N0,,,,
+HEX4[3],Output,PIN_T4,1,B1_N0,,,,
+HEX5[3],Output,PIN_T9,1,B1_N0,,,,
+HEX4[1],Output,PIN_U1,1,B1_N0,,,,
+HEX4[2],Output,PIN_U2,1,B1_N0,,,,
+HEX4[0],Output,PIN_U9,1,B1_N0,,,,
+HEX3[5],Output,PIN_U22,6,B6_N1,,,,
+HEX0[6],Output,PIN_V13,8,B8_N0,,,,
+HEX0[5],Output,PIN_V14,8,B8_N0,,,,
+HEX1[0],Output,PIN_V20,6,B6_N1,,,,
+HEX1[1],Output,PIN_V21,6,B6_N1,,,,
+HEX2[1],Output,PIN_V22,6,B6_N1,,,,
+HEX1[2],Output,PIN_W21,6,B6_N1,,,,
+HEX3[6],Output,PIN_W24,6,B6_N1,,,,
+HEX1[3],Output,PIN_Y22,6,B6_N1,,,,
+HEX3[0],Output,PIN_Y23,6,B6_N1,,,,
+HEX2[6],Output,PIN_Y24,6,B6_N1,,,,
+HEX3[4],Output,PIN_Y25,6,B6_N1,,,,
+HEX3[3],Output,PIN_Y26,6,B6_N1,,,,

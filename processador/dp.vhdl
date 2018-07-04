@@ -64,6 +64,7 @@ architecture rtl2 of dp is
 	constant andr  : std_logic_vector(3 downto 0) := "0101";
 	constant orr   : std_logic_vector(3 downto 0) := "0110";
 	constant inv   : std_logic_vector(3 downto 0) := "1000";
+	constant halt  : std_logic_vector(3 downto 0) := "1001";
 	
 
 	begin
@@ -111,6 +112,8 @@ architecture rtl2 of dp is
 						alu_inA   <= acc_out;
 						acc_in    <= alu_out;
 						output_dp <= alu_out;
+					when halt =>
+						-- 
 					when others =>
 				end case;
 		end process;
