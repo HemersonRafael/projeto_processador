@@ -36,29 +36,19 @@ architecture fsm of ctrl is
 	constant halt	  : std_logic_vector(3 downto 0) := "1001";
 	
 
-	type PM_BLOCK is array (0 to 6) of std_logic_vector(7 downto 0); -- PM e a memoria de instrucoes 
+	type PM_BLOCK is array (0 to 8) of std_logic_vector(7 downto 0); -- PM e a memoria de instrucoes 
 	constant PM : PM_BLOCK := (	
-		-- This algorithm loads an immediate value of 3 and then stops
-		"00101001", -- load 9
 		
-		"00010000", --movr 15 para r00
-		--"00101111", --load 15
-		"00100001", -- load 1
-		--"00100000", -- load 0
-		"00011100", --movr 0 para r01
-		--"00000100", --
---		"00100100",    -- load 4
---		"00010000",		-- movr 00
---		"00100101",    -- load 5
---		"00010100",		-- movr 01
-		--"00110000",		-- add
-		"00000000", -- mova
-		--"01010000",	-- and
---		"01100000",	-- or
-		--"01110000"
-		"01001100", --sub
-		--"10000100"
-		"10011111"		-- halt
+		"00100101", --	load :  acc = 5
+		"00010000", --	movr :	r[00] = 5
+		"00100011", --	load :  acc = 3
+		"00010100", --	movr :	r[01] = 3
+		"00110000", --	add  :	acc = 3 + 5
+		"00011000", --	movr :	r[10] = 8
+		"10001100", --	inv  :  acc = not(acc)
+		"01101000", --	or   :	acc = acc or r[10] = 15
+		"01110001"	-- jmp
+
    );
 	
 	begin
@@ -157,7 +147,7 @@ architecture fsm of ctrl is
 						acc_enb_ctrl <= '0';
 						rf_enb_ctrl  <= '0';
 						PC 	  		 := conv_integer(unsigned(ADDRESS));
-						alu_st_ctrl  <= "1111";
+						alu_st_ctrl  <= jmp;
 						rf_sel_ctrl  <= ADDRESS(3 downto 2);
 						state   <= s1;
 					when s12 => --Accumulator = NOT Accumulator 

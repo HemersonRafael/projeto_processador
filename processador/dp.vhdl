@@ -73,48 +73,53 @@ architecture rtl2 of dp is
 		RF1 :	rf  port map(rst_dp, clk_dp, rf_in, rf_sel_dp, rf_enb_dp, rf_out);
 		ACC1: acc port map(rst_dp, clk_dp, acc_in, acc_enb_dp, acc_out);
 		
-		process (rst_dp, clk_dp, alu_inA , alu_inB, alu_st_dp, alu_out, rf_in, rf_sel_dp, rf_enb_dp, rf_out, acc_in, acc_enb_dp, acc_out)
+		process (rst_dp, alu_inA , alu_inB, alu_st_dp, alu_out, rf_in, rf_sel_dp, rf_enb_dp, rf_out, acc_in, acc_enb_dp, acc_out)
 			begin
-				case alu_st_dp is	
-					when mova =>
-						alu_inB <= rf_out;
-						acc_in  <= alu_out;
-						output_dp <= alu_out;
-					when movr =>
-						alu_inA <= acc_out;
-						rf_in <= alu_out;
-						output_dp <= alu_out;						
-					when load =>
-						alu_inB <= input_dp;
-						acc_in  <= alu_out;
-						output_dp <= alu_out;
-					when add =>
-						alu_inA <= acc_out;
-						alu_inB <= rf_out;
-						acc_in  <= alu_out;
-						output_dp <= alu_out;
-					when sub =>
-						alu_inA <= acc_out;
-						alu_inB <= rf_out;
-						acc_in  <= alu_out;
-						output_dp <= alu_out;
-					when andr =>
-						alu_inA <= acc_out;
-						alu_inB <= rf_out;
-						acc_in  <= alu_out;
-						output_dp <= alu_out;
-					when orr =>
-						alu_inA <= acc_out;
-						alu_inB <= rf_out;
-						acc_in  <= alu_out;
-						output_dp <= alu_out;
-					when inv =>
-						alu_inA   <= acc_out;
-						acc_in    <= alu_out;
-						output_dp <= alu_out;
-					when halt =>
-						-- 
-					when others =>
-				end case;
+				if(rst_dp = '1') then
+					output_dp <= "0000";
+				elsif (clk_dp'event and clk_dp = '0') then
+					case alu_st_dp is	
+						when mova =>
+							alu_inB <= rf_out;
+							acc_in  <= alu_out;
+							--output_dp <= alu_out;
+						when movr =>
+							alu_inA <= acc_out;
+							rf_in <= alu_out;
+							--output_dp <= alu_out;						
+						when load =>
+							alu_inB <= input_dp;
+							acc_in  <= alu_out;
+							--output_dp <= alu_out;
+						when add =>
+							alu_inA <= acc_out;
+							alu_inB <= rf_out;
+							acc_in  <= alu_out;
+							--output_dp <= alu_out;
+						when sub =>
+							alu_inA <= acc_out;
+							alu_inB <= rf_out;
+							acc_in  <= alu_out;
+							--output_dp <= alu_out;
+						when andr =>
+							alu_inA <= acc_out;
+							alu_inB <= rf_out;
+							acc_in  <= alu_out;
+							--output_dp <= alu_out;
+						when orr =>
+							alu_inA <= acc_out;
+							alu_inB <= rf_out;
+							acc_in  <= alu_out;
+							--output_dp <= alu_out;
+						when inv =>
+							alu_inA   <= acc_out;
+							acc_in    <= alu_out;
+							
+						when others =>
+							output_dp <= acc_out;
+						
+					end case;
+					output_dp <= alu_out;
+				end if;
 		end process;
 end rtl2;

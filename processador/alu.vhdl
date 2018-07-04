@@ -1,6 +1,5 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
-use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
 
 -- unidade logica aritmetrica (ULA)
@@ -19,18 +18,11 @@ end alu;
 
 architecture bhv of alu is
 	begin
-		process (rst, clk, alu_st)
-			variable A,B, RESLT : integer := 0;
-			
+		process (rst, clk, alu_st, inputA, inputB)
 			begin
-				
 				if(rst = '1') then
 					output <= "0000";
-					A := 0;
-					B := 0;
 				else
-					A := conv_integer(unsigned(inputA));
-					B := conv_integer(unsigned(inputB));
 					case alu_st is
 						-- Accumulator = Register [dd]
 						when "0000" => output <= inputB;
@@ -39,9 +31,9 @@ architecture bhv of alu is
 						-- Accumulator = Immediate
 						when "0010" => output <= inputB;
 						-- Accumulator = Accumulator + Register[dd]
-						when "0011" => output <= conv_std_logic_vector((A + B),4);
+						when "0011" => output <= inputA + inputB;
 						-- Accumulator = Accumulator - Register[dd]
-						when "0100" => output <= conv_std_logic_vector((A - B),4);
+						when "0100" => output <= inputA - inputB;
 						-- Accumulator = Accumulator AND Register[dd]
 						when "0101" => output <= inputA and inputB;
 						-- Accumulator = Accumulator OR Register[dd]
