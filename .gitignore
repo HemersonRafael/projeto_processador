@@ -75,3 +75,6 @@ processador/db/
 processador/incremental_db/
 processador/output_files
 processador/simulation/
+
+*.qsf
+*.qws

@@ -79,8 +79,8 @@ architecture struc of cpu is
 	
 	begin
 	   
-		datapath: dp port map(rst, clk, immediate, alu_st_ctrl_out, rf_sel_ctrl_out, rf_enb_ctrl_out, acc_enb_ctrl_out, cpu_out);
-		controller: ctrl port map(rst,start, clk, immediate, alu_st_ctrl_out, rf_sel_ctrl_out, rf_enb_ctrl_out, acc_enb_ctrl_out);
+		DATAPATH		: dp 		port map(rst, clk, immediate, alu_st_ctrl_out, rf_sel_ctrl_out, rf_enb_ctrl_out, acc_enb_ctrl_out, cpu_out);
+		CONTROLLER	: ctrl 	port map(rst,start, clk, immediate, alu_st_ctrl_out, rf_sel_ctrl_out, rf_enb_ctrl_out, acc_enb_ctrl_out);
 		
 
 		C7S1: conversor_7seg port map(dezena_CPU,HEX5);
